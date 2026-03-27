@@ -1,4 +1,72 @@
-XU: {explain: "دوّر شفايفك يا حاج وطلع صوت شووووو بالراحة", voice: "شوووووووووووووو", imgM: "94fde1c3-5e50-4f06-b131-ca103f3b05d8", imgB: "848b0540-a48f-4055-9320-c1b0e556b6a4"},
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Liuzijue Therapy | د. عبدالرحمن فودة</title>
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@700;900&display=swap" rel="stylesheet">
+<style>
+:root { --p:#00e5ff; --bg:#050a14; --card:#101827; --green:#00c853; }
+body { font-family:'Tajawal',sans-serif; background:var(--bg); color:white; text-align:center; margin:0; padding-bottom:30px; }
+.header-box { background:var(--card); padding:15px; border-bottom:3px solid var(--p); box-shadow: 0 4px 10px rgba(0,0,0,0.5); }
+.stats { font-size:16px; margin-top:8px; color:#00e676; font-weight:bold; }
+.big-btn { background:linear-gradient(45deg,#1a73e8,#00e5ff); padding:18px; font-size:20px; border:none; border-radius:15px; width:95%; margin:10px auto; font-weight:900; color:white; cursor:pointer; }
+.grid { display:grid; grid-template-columns:1fr 1fr 1fr; gap:8px; padding:10px; }
+.card { background:var(--card); padding:12px 5px; border-radius:12px; border:2px solid #1f2937; transition:0.3s; font-size:14px; }
+.card.active { border-color:var(--p); background:rgba(0,229,255,0.15); transform:scale(1.05); }
+.instruction { background:#111827; padding:15px; border-radius:20px; margin:10px; border:1px solid #334155; }
+.image-container { display:flex; gap:10px; margin-top:10px; }
+.image-container img { width:50%; border-radius:10px; height:150px; object-fit:cover; border:1px solid var(--p); }
+.circle { width:180px; height:180px; border-radius:50%; border:12px solid #1f2937; display:flex; align-items:center; justify-content:center; margin:20px auto; font-size:24px; font-weight:900; transition:1s; }
+.controls { display:grid; grid-template-columns:2fr 1fr; gap:10px; padding:10px; }
+.stop-btn { background:#d32f2f; color:white; border:none; border-radius:15px; font-weight:bold; cursor:pointer; }
+</style>
+</head>
+<body>
+
+<div class="header-box">
+    <div style="font-size:14px; opacity:0.8">برنامج إعادة التأهيل الرئوي الرقمي</div>
+    <div class="stats">إجمالي الجلسات التي أتممتها: <span id="counter">0</span></div>
+</div>
+
+<button class="big-btn" onclick="speak(data[current].explain)">🔊 اسمع شرح التمرين</button>
+
+<div class="grid">
+    <div class="card active" onclick="select('SI',this)"><b>SI</b><br>الرئة</div>
+    <div class="card" onclick="select('XU',this)"><b>XU</b><br>الكبد</div>
+    <div class="card" onclick="select('HE',this)"><b>HE</b><br>القلب</div>
+    <div class="card" onclick="select('HU',this)"><b>HU</b><br>الطحال</div>
+    <div class="card" onclick="select('CHUI',this)"><b>CHUI</b><br>الكلى</div>
+    <div class="card" onclick="select('XI',this)"><b>XI</b><br>الموازن</div>
+</div>
+
+<div class="instruction">
+    <div id="desc" style="font-weight:bold; color:var(--p); margin-bottom:5px;">تمرين الرئة: ضم أسنانك وطلع صوت سييييي</div>
+    <div class="image-container">
+        <img id="imgM" src="79c5c10b-16ab-4bcf-b317-0695fc1352dc" alt="وضعية الفم">
+        <img id="imgB" src="311cf90f-af98-4522-998a-f285bcd115ee" alt="حركة الجسم">
+    </div>
+</div>
+
+<div class="circle" id="circle">جاهز؟</div>
+
+<div class="controls">
+    <button class="big-btn" style="background:var(--green); margin:0;" onclick="start()">▶️ ابدأ التمرين</button>
+    <button class="stop-btn" onclick="stop()">⛔ توقف</button>
+</div>
+
+<script>
+let current = 'SI';
+let running = false;
+let synth = window.speechSynthesis;
+
+// استعادة العداد من الذاكرة
+let sessionCount = parseInt(localStorage.getItem("sessions")) || 0;
+document.getElementById("counter").innerText = sessionCount;
+
+const data = {
+    SI: {explain: "يا حاج ضم سنانك لبعض وطلع الهوا بالراحة بصوت سييييييي", voice: "سيييييييييييييييي", imgM: "79c5c10b-16ab-4bcf-b317-0695fc1352dc", imgB: "311cf90f-af98-4522-998a-f285bcd115ee"},
+    XU: {explain: "دوّر شفايفك يا حاج وطلع صوت شووووو بالراحة", voice: "شوووووووووووووو", imgM: "94fde1c3-5e50-4f06-b131-ca103f3b05d8", imgB: "848b0540-a48f-4055-9320-c1b0e556b6a4"},
     HE: {explain: "افتح بقك وطلع صوت هاااااااا من قلبك", voice: "هاااااااااااااااا", imgM: "68559378-fb7a-4a9c-b91a-186c990ee5e5", imgB: "9ad1365c-edb3-4f04-bd4f-6e609b073e9a"},
     HU: {explain: "طلع صوت هووووووو ببطء مع حركة إيدك", voice: "هووووووووووووووو", imgM: "22c78d9c-2c4f-4e5e-9c45-4183e556b6a4", imgB: "311cf90f-af98-4522-998a-f285bcd115ee"},
     CHUI: {explain: "طلع صوت شويييييييي بهدوء تام", voice: "شوييييييييييييييي", imgM: "79c5c10b-16ab-4bcf-b317-0695fc1352dc", imgB: "311cf90f-af98-4522-998a-f285bcd115ee"},

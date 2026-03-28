@@ -1,146 +1,204 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Liuzijue Therapy | د. عبدالرحمن فودة</title>
-<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@700;900&display=swap" rel="stylesheet">
-<style>
-:root { --p:#00e5ff; --bg:#050a14; --card:#101827; --green:#00c853; }
-body { font-family:'Tajawal',sans-serif; background:var(--bg); color:white; text-align:center; margin:0; padding-bottom:30px; }
-.header-box { background:var(--card); padding:15px; border-bottom:3px solid var(--p); box-shadow: 0 4px 10px rgba(0,0,0,0.5); }
-.stats { font-size:16px; margin-top:8px; color:#00e676; font-weight:bold; }
-.big-btn { background:linear-gradient(45deg,#1a73e8,#00e5ff); padding:18px; font-size:20px; border:none; border-radius:15px; width:95%; margin:10px auto; font-weight:900; color:white; cursor:pointer; }
-.grid { display:grid; grid-template-columns:1fr 1fr 1fr; gap:8px; padding:10px; }
-.card { background:var(--card); padding:12px 5px; border-radius:12px; border:2px solid #1f2937; transition:0.3s; font-size:14px; }
-.card.active { border-color:var(--p); background:rgba(0,229,255,0.15); transform:scale(1.05); }
-.instruction { background:#111827; padding:15px; border-radius:20px; margin:10px; border:1px solid #334155; }
-.image-container { display:flex; gap:10px; margin-top:10px; }
-.image-container img { width:50%; border-radius:10px; height:150px; object-fit:cover; border:1px solid var(--p); }
-.circle { width:180px; height:180px; border-radius:50%; border:12px solid #1f2937; display:flex; align-items:center; justify-content:center; margin:20px auto; font-size:24px; font-weight:900; transition:1s; }
-.controls { display:grid; grid-template-columns:2fr 1fr; gap:10px; padding:10px; }
-.stop-btn { background:#d32f2f; color:white; border:none; border-radius:15px; font-weight:bold; cursor:pointer; }
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>COPD Clinical Study | Dr. Foda</title>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700;900&display=swap" rel="stylesheet">
+    <style>
+        :root { --p: #00e5ff; --bg: #050a14; --card: #111b2d; --green: #00e676; --gold: #ffd700; --red: #ff5252; }
+        body { font-family: 'Tajawal', sans-serif; background: var(--bg); color: #e2e8f0; margin: 0; padding-bottom: 20px; }
+        .screen { display: none; padding: 15px; animation: fadeIn 0.4s ease; }
+        .active { display: block; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        .header { background: var(--card); padding: 20px; text-align: center; border-bottom: 2px solid var(--p); margin-bottom: 20px; }
+        .card { background: var(--card); padding: 15px; border-radius: 15px; margin-bottom: 15px; border-right: 4px solid var(--p); box-shadow: 0 4px 15px rgba(0,0,0,0.5); }
+        h3 { color: var(--gold); font-size: 16px; margin-bottom: 12px; border-bottom: 1px solid #2d3a54; padding-bottom: 5px; }
+        label { display: block; margin: 12px 0 5px; font-size: 13px; color: #94a3b8; }
+        select, input { width: 100%; padding: 12px; border-radius: 8px; border: none; background: #1e293b; color: white; font-family: inherit; box-sizing: border-box; }
+        .btn-primary { background: linear-gradient(45deg, #1a73e8, var(--p)); color: #fff; border: none; width: 100%; padding: 16px; border-radius: 12px; font-weight: 900; font-size: 16px; cursor: pointer; margin-top: 15px; }
+        .btn-primary:disabled { opacity: 0.6; cursor: not-allowed; }
+        .btn-export { background: transparent; color: var(--green); border: 1px solid var(--green); width: 100%; padding: 12px; border-radius: 10px; cursor: pointer; margin-top: 10px; font-weight: bold; }
+        .tool2-item { display: grid; grid-template-columns: 1fr 100px; align-items: center; gap: 10px; padding: 10px 0; border-bottom: 1px solid rgba(255,255,255,0.05); }
+        .status-msg { padding: 15px; border-radius: 10px; font-size: 14px; text-align: center; margin-top: 15px; font-weight: bold; border: 1px solid var(--green); background: rgba(0, 230, 118, 0.1); color: var(--green); }
+        .safety-alert { background: rgba(255, 82, 82, 0.1); color: var(--red); border: 1px solid var(--red); padding: 10px; border-radius: 10px; text-align: center; margin-bottom: 15px; font-size: 11px; }
+    </style>
 </head>
-<body>
+<body onload="initApp()">
 
-<div class="header-box">
-    <div style="font-size:14px; opacity:0.8">برنامج إعادة التأهيل الرئوي الرقمي</div>
-    <div class="stats">إجمالي الجلسات التي أتممتها: <span id="counter">0</span></div>
-</div>
-
-<button class="big-btn" onclick="speak(data[current].explain)">🔊 اسمع شرح التمرين</button>
-
-<div class="grid">
-    <div class="card active" onclick="select('SI',this)"><b>SI</b><br>الرئة</div>
-    <div class="card" onclick="select('XU',this)"><b>XU</b><br>الكبد</div>
-    <div class="card" onclick="select('HE',this)"><b>HE</b><br>القلب</div>
-    <div class="card" onclick="select('HU',this)"><b>HU</b><br>الطحال</div>
-    <div class="card" onclick="select('CHUI',this)"><b>CHUI</b><br>الكلى</div>
-    <div class="card" onclick="select('XI',this)"><b>XI</b><br>الموازن</div>
-</div>
-
-<div class="instruction">
-    <div id="desc" style="font-weight:bold; color:var(--p); margin-bottom:5px;">تمرين الرئة: ضم أسنانك وطلع صوت سييييي</div>
-    <div class="image-container">
-        <img id="imgM" src="79c5c10b-16ab-4bcf-b317-0695fc1352dc" alt="وضعية الفم">
-        <img id="imgB" src="311cf90f-af98-4522-998a-f285bcd115ee" alt="حركة الجسم">
+<div id="step0" class="screen active">
+    <div class="header"><h2 style="color:var(--p); margin:0;">Research Protocol</h2></div>
+    <div class="card">
+        <p style="font-size: 14px; line-height: 1.6;">بصفتي باحثاً من جامعة المنوفية، أقر بالالتزام بالمعايير الأخلاقية للبحث العلمي وضمان سرية بيانات المرضى.</p>
+        <label>تحديد مجموعة الدراسة (Group Allocation):</label>
+        <select id="group-select">
+            <option value="Intervention">Intervention (Liuzijue Exercise)</option>
+            <option value="Control">Control (Standard Care)</option>
+        </select>
+        <button class="btn-primary" onclick="acceptConsent()">موافقة وبدء الدراسة ✅</button>
     </div>
 </div>
 
-<div class="circle" id="circle">جاهز؟</div>
+<div id="step1" class="screen">
+    <div class="header"><h2 style="color:var(--p); margin:0;">Tool I: Sociodemographic</h2></div>
+    <div class="card">
+        <label>العمر (Age Group):</label>
+        <select id="age"><option value="">اختر الفئة</option><option value="18-30">18-30</option><option value="31-40">31-40</option><option value="41-50">41-50</option><option value="51-60">51-60</option></select>
+        <label>النوع (Gender):</label>
+        <select id="gender"><option value="">اختر</option><option value="Male">ذكر</option><option value="Female">أنثى</option></select>
+        <button class="btn-primary" onclick="validateStep1()">حفظ البيانات ➡️</button>
+    </div>
+</div>
 
-<div class="controls">
-    <button class="big-btn" style="background:var(--green); margin:0;" onclick="start()">▶️ ابدأ التمرين</button>
-    <button class="stop-btn" onclick="stop()">⛔ توقف</button>
+<div id="step2" class="screen">
+    <div class="header"><h2 style="color:var(--p); margin:0;">Baseline Assessment</h2></div>
+    <div class="card" id="tool2-container"></div>
+    <button class="btn-primary" onclick="validateStep2()">اعتماد نقطة البداية ✅</button>
+</div>
+
+<div id="main-app" class="screen">
+    <div class="header">
+        <h2 style="color:var(--p); margin:0;">Clinical Dashboard</h2>
+        <p id="patient-display" style="font-size:11px;"></p>
+    </div>
+    <div class="safety-alert">⚠️ البروتوكول الأمني: توقف فوراً إذا انخفض الأكسجين عن 88%.</div>
+    <div class="card">
+        <h3>تسجيل الجلسة (Monitoring)</h3>
+        <label>Dyspnea Pre (0-5):</label>
+        <select id="d-pre"><option value="0">0</option><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option></select>
+        <label>SpO2 Pre (%):</label>
+        <input type="number" id="s-pre" placeholder="القيمة الحالية">
+        <button class="btn-primary" id="start-btn" onclick="runClinicalSession()">▶️ تشغيل التدخل الإكلينيكي</button>
+    </div>
+    <div id="analysis-box" class="status-msg" style="display:none;"></div>
+    <div class="card" style="border-right-color: var(--green);">
+        <button class="btn-export" onclick="exportFinalStudyData()">📥 استخراج التقرير البحثي (SPSS Ready)</button>
+        <button class="btn-danger" style="background:transparent; color:var(--red); border:1px solid var(--red); width:100%; padding:8px; border-radius:8px; margin-top:10px; cursor:pointer;" onclick="resetStudy()">Reset Clinical Study</button>
+    </div>
 </div>
 
 <script>
-let current = 'SI';
-let running = false;
-let synth = window.speechSynthesis;
+    const activities = ["أثناء الراحة", "أثناء المشي", "صعود الدرج", "أثناء الأكل", "الوقوف", "الاستحمام"];
+    let sessionStartTime = null;
 
-// استعادة العداد من الذاكرة
-let sessionCount = parseInt(localStorage.getItem("sessions")) || 0;
-document.getElementById("counter").innerText = sessionCount;
+    function initApp() {
+        const container = document.getElementById('tool2-container');
+        activities.forEach((act) => {
+            container.innerHTML += `<div class="tool2-item"><span>${act}</span><select class="t2-val"><option value="">0-5</option>${[0,1,2,3,4,5].map(v => `<option value="${v}">${v}</option>`).join('')}</select></div>`;
+        });
+        if(localStorage.getItem('foda_active')) loadDashboard();
+    }
 
-const data = {
-    SI: {explain: "يا حاج ضم سنانك لبعض وطلع الهوا بالراحة بصوت سييييييي", voice: "سيييييييييييييييي", imgM: "79c5c10b-16ab-4bcf-b317-0695fc1352dc", imgB: "311cf90f-af98-4522-998a-f285bcd115ee"},
-    XU: {explain: "دوّر شفايفك يا حاج وطلع صوت شووووو بالراحة", voice: "شوووووووووووووو", imgM: "94fde1c3-5e50-4f06-b131-ca103f3b05d8", imgB: "848b0540-a48f-4055-9320-c1b0e556b6a4"},
-    HE: {explain: "افتح بقك وطلع صوت هاااااااا من قلبك", voice: "هاااااااااااااااا", imgM: "68559378-fb7a-4a9c-b91a-186c990ee5e5", imgB: "9ad1365c-edb3-4f04-bd4f-6e609b073e9a"},
-    HU: {explain: "طلع صوت هووووووو ببطء مع حركة إيدك", voice: "هووووووووووووووو", imgM: "22c78d9c-2c4f-4e5e-9c45-4183e556b6a4", imgB: "311cf90f-af98-4522-998a-f285bcd115ee"},
-    CHUI: {explain: "طلع صوت شويييييييي بهدوء تام", voice: "شوييييييييييييييي", imgM: "79c5c10b-16ab-4bcf-b317-0695fc1352dc", imgB: "311cf90f-af98-4522-998a-f285bcd115ee"},
-    XI: {explain: "طلع صوت شييييييييي عشان توازن جسمك", voice: "شيييييييييييييييي", imgM: "94fde1c3-5e50-4f06-b131-ca103f3b05d8", imgB: "848b0540-a48f-4055-9320-c1b0e556b6a4"}
-};
+    function acceptConsent() {
+        localStorage.setItem('foda_group', document.getElementById('group-select').value);
+        document.getElementById('step0').classList.remove('active');
+        document.getElementById('step1').classList.add('active');
+    }
 
-function speak(t, r = 0.7) {
-    synth.cancel();
-    let u = new SpeechSynthesisUtterance(t);
-    u.lang = 'ar-EG';
-    u.rate = r;
-    synth.speak(u);
-}
+    function validateStep1() {
+        const age = document.getElementById('age').value;
+        const gender = document.getElementById('gender').value;
+        if(!age || !gender) return alert("يرجى ملء البيانات");
+        const pID = "COPD-" + Math.floor(1000 + Math.random()*9000);
+        localStorage.setItem('foda_p', JSON.stringify({id: pID, age, gender, group: localStorage.getItem('foda_group'), start: new Date().toISOString()}));
+        document.getElementById('step1').classList.remove('active');
+        document.getElementById('step2').classList.add('active');
+    }
 
-function select(k, el) {
-    current = k;
-    document.querySelectorAll('.card').forEach(c => c.classList.remove('active'));
-    el.classList.add('active');
-    document.getElementById('desc').innerText = data[k].explain;
-    document.getElementById('imgM').src = data[k].imgM;
-    document.getElementById('imgB').src = data[k].imgB;
-    speak(data[k].explain);
-}
+    function validateStep2() {
+        let total = 0, complete = true;
+        document.querySelectorAll('.t2-val').forEach(s => { if(!s.value) complete = false; else total += parseInt(s.value); });
+        if(!complete) return alert("يرجى تقييم كافة العناصر");
+        localStorage.setItem('foda_baseline', total);
+        localStorage.setItem('foda_active', true);
+        loadDashboard();
+    }
 
-async function start() {
-    if (running) return;
-    running = true;
-    let c = document.getElementById('circle');
+    function loadDashboard() {
+        document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+        document.getElementById('main-app').classList.add('active');
+        const p = JSON.parse(localStorage.getItem('foda_p'));
+        document.getElementById('patient-display').innerText = `ID: ${p.id} | Group: ${p.group}`;
+    }
 
-    for (let i = 1; i <= 6; i++) {
-        if (!running) break;
+    async function runClinicalSession() {
+        const preS = parseInt(document.getElementById('s-pre').value);
+        const preD = parseInt(document.getElementById('d-pre').value);
+        const btn = document.getElementById('start-btn');
         
-        // شهيق
-        c.innerText = "شهيق";
-        c.style.transform = "scale(1.3)";
-        c.style.borderColor = "#00e5ff";
-        if(navigator.vibrate) navigator.vibrate(200);
-        speak("خُد نفس عميق من مناخيرك");
-        await delay(4000);
+        if(isNaN(preS) || preS < 70 || preS > 100) return alert("قيمة الأكسجين قبل الجلسة غير منطقية!");
+        
+        // 3️⃣ Start Session Duration Tracking
+        sessionStartTime = Date.now();
+        btn.disabled = true; btn.innerText = "⏳ الجلسة جارية (Intervention)...";
+        
+        await new Promise(r => setTimeout(r, 2000)); // محاكاة مدة التدخل
 
-        // كتم
-        c.innerText = "ثبات";
-        c.style.borderColor = "#ffd54f";
-        speak("اكتم نَفَسَك ثانية");
-        await delay(2000);
+        let postSInput = prompt("نسبة الأكسجين بعد الجلسة (%):", preS);
+        let postDInput = prompt("تقييم النهجان بعد الجلسة (0-5):", preD);
+        
+        let postS = parseInt(postSInput);
+        let postD = parseInt(postDInput);
+        let duration = Math.round((Date.now() - sessionStartTime) / 60000); // 3️⃣ Duration in minutes
 
-        // زفير بصوت التمرين
-        c.innerText = data[current].voice.substring(0,5);
-        c.style.transform = "scale(1)";
-        c.style.borderColor = "#ff5252";
-        if(navigator.vibrate) navigator.vibrate([100, 100, 100]);
-        speak(data[current].voice, 0.5); // نطق بطيء جداً للمحاكاة
-        await delay(6000);
+        let logs = JSON.parse(localStorage.getItem('foda_logs')) || [];
+        
+        // 2️⃣ Handle Missing Data (Intent-to-treat)
+        let adherence = true;
+        if(isNaN(postS) || isNaN(postD)) {
+            adherence = false;
+            logs.push({ 
+                session_no: logs.length + 1, datetime: new Date().toISOString(),
+                adherence: false, duration: 0, safety_flag: null,
+                preS, postS: null, preD, postD: null
+            });
+            localStorage.setItem('foda_logs', JSON.stringify(logs));
+            btn.disabled = false; btn.innerText = "▶️ تشغيل التدخل الإكلينيكي";
+            return alert("تم تسجيل الجلسة كبيانات مفقودة (Missing Data).");
+        }
+
+        // 1️⃣ Fix Safety Logic (SpO2 < 88 or Drop >= 4)
+        let safety_flag = (postS < 88 || (preS - postS) >= 4);
+
+        logs.push({ 
+            session_no: logs.length + 1, datetime: new Date().toISOString(),
+            adherence, duration, safety_flag,
+            preS, postS, preD, postD 
+        });
+        localStorage.setItem('foda_logs', JSON.stringify(logs));
+
+        const box = document.getElementById('analysis-box');
+        box.style.display = "block";
+        box.innerHTML = `✅ سجلت: SpO2 Δ ${postS - preS}% | المدة: ${duration} دقيقة`;
+        btn.disabled = false; btn.innerText = "▶️ تشغيل التدخل الإكلينيكي";
     }
 
-    if (running) {
-        sessionCount++;
-        localStorage.setItem("sessions", sessionCount);
-        document.getElementById("counter").innerText = sessionCount;
-        speak("برافو يا حاج، كملت الجلسة بنجاح، ريح جسمك شوية");
-        c.innerText = "أحسنت";
-        c.style.borderColor = "#00c853";
+    function exportFinalStudyData() {
+        const p = JSON.parse(localStorage.getItem('foda_p'));
+        const logs = JSON.parse(localStorage.getItem('foda_logs')) || [];
+        const baseline = localStorage.getItem('foda_baseline');
+
+        let csv = "\ufeffTITLE: Clinical Study on COPD Pulmonary Rehabilitation\n\n";
+        csv += "Patient_Code,Group,Age,Gender,Baseline_Dyspnea\n";
+        csv += `${p.id},${p.group},${p.age},${p.gender},${baseline}\n\n`;
+        
+        // 4️⃣ Add Change columns in Export
+        csv += "Session,ISO_Timestamp,Duration_Min,Adherence,Safety_Flag,SpO2_Pre,SpO2_Post,SpO2_Change,Dyspnea_Pre,Dyspnea_Post,Dyspnea_Change\n";
+        
+        logs.forEach(l => { 
+            let s_change = (l.postS !== null) ? (l.postS - l.preS) : "N/A";
+            let d_change = (l.postD !== null) ? (l.postD - l.preD) : "N/A";
+            csv += `${l.session_no},${l.datetime},${l.duration},${l.adherence},${l.safety_flag},${l.preS},${l.postS},${s_change},${l.preD},${l.postD},${d_change}\n`; 
+        });
+        
+        const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+        const link = document.createElement("a");
+        link.href = URL.createObjectURL(blob);
+        link.download = `Study_Report_${p.id}.csv`;
+        link.click();
     }
-    running = false;
-}
 
-function stop() {
-    running = false;
-    synth.cancel();
-    document.getElementById('circle').innerText = "توقف";
-    document.getElementById('circle').style.transform = "scale(1)";
-}
-
-function delay(ms) { return new Promise(r => setTimeout(r, ms)); }
+    function resetStudy() { if(confirm("حذف البيانات الإكلينيكية؟")) { localStorage.clear(); location.reload(); } }
 </script>
 </body>
 </html>

@@ -3,202 +3,240 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>COPD Clinical Study | Dr. Foda</title>
+    <title>نظام إعادة التأهيل الرئوي - جامعة العاصيمة</title>
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700;900&display=swap" rel="stylesheet">
     <style>
-        :root { --p: #00e5ff; --bg: #050a14; --card: #111b2d; --green: #00e676; --gold: #ffd700; --red: #ff5252; }
-        body { font-family: 'Tajawal', sans-serif; background: var(--bg); color: #e2e8f0; margin: 0; padding-bottom: 20px; }
-        .screen { display: none; padding: 15px; animation: fadeIn 0.4s ease; }
+        :root { --p: #00e5ff; --bg: #050a14; --card: #111b2d; --green: #00e676; --gold: #ffd700; --red: #ff5252; --text: #e2e8f0; }
+        body { font-family: 'Tajawal', sans-serif; background: var(--bg); color: var(--text); margin: 0; line-height: 1.6; }
+        .screen { display: none; padding: 20px; animation: fadeIn 0.4s ease; }
         .active { display: block; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-        .header { background: var(--card); padding: 20px; text-align: center; border-bottom: 2px solid var(--p); margin-bottom: 20px; }
-        .card { background: var(--card); padding: 15px; border-radius: 15px; margin-bottom: 15px; border-right: 4px solid var(--p); box-shadow: 0 4px 15px rgba(0,0,0,0.5); }
-        h3 { color: var(--gold); font-size: 16px; margin-bottom: 12px; border-bottom: 1px solid #2d3a54; padding-bottom: 5px; }
-        label { display: block; margin: 12px 0 5px; font-size: 13px; color: #94a3b8; }
-        select, input { width: 100%; padding: 12px; border-radius: 8px; border: none; background: #1e293b; color: white; font-family: inherit; box-sizing: border-box; }
-        .btn-primary { background: linear-gradient(45deg, #1a73e8, var(--p)); color: #fff; border: none; width: 100%; padding: 16px; border-radius: 12px; font-weight: 900; font-size: 16px; cursor: pointer; margin-top: 15px; }
-        .btn-primary:disabled { opacity: 0.6; cursor: not-allowed; }
-        .btn-export { background: transparent; color: var(--green); border: 1px solid var(--green); width: 100%; padding: 12px; border-radius: 10px; cursor: pointer; margin-top: 10px; font-weight: bold; }
-        .tool2-item { display: grid; grid-template-columns: 1fr 100px; align-items: center; gap: 10px; padding: 10px 0; border-bottom: 1px solid rgba(255,255,255,0.05); }
-        .status-msg { padding: 15px; border-radius: 10px; font-size: 14px; text-align: center; margin-top: 15px; font-weight: bold; border: 1px solid var(--green); background: rgba(0, 230, 118, 0.1); color: var(--green); }
-        .safety-alert { background: rgba(255, 82, 82, 0.1); color: var(--red); border: 1px solid var(--red); padding: 10px; border-radius: 10px; text-align: center; margin-bottom: 15px; font-size: 11px; }
+        
+        .header { background: var(--card); padding: 20px; text-align: center; border-bottom: 3px solid var(--p); margin-bottom: 20px; box-shadow: 0 4px 20px rgba(0,229,255,0.2); }
+        .card { background: var(--card); padding: 20px; border-radius: 18px; margin-bottom: 20px; border-right: 5px solid var(--p); box-shadow: 0 8px 25px rgba(0,0,0,0.6); }
+        
+        h2 { color: var(--p); margin: 0; font-weight: 900; font-size: 20px; }
+        h3 { color: var(--gold); font-size: 18px; border-bottom: 1px solid #2d3a54; padding-bottom: 10px; margin-top: 0; }
+        
+        label { display: block; margin: 15px 0 8px; font-size: 14px; color: #94a3b8; font-weight: bold; }
+        select, input, textarea { width: 100%; padding: 12px; border-radius: 10px; border: 1px solid #2d3a54; background: #1e293b; color: white; font-family: inherit; box-sizing: border-box; }
+        
+        .btn { border: none; width: 100%; padding: 16px; border-radius: 12px; font-weight: 900; font-size: 16px; cursor: pointer; transition: 0.3s; margin-top: 15px; display: flex; align-items: center; justify-content: center; gap: 10px; }
+        .btn-primary { background: linear-gradient(45deg, #1a73e8, var(--p)); color: #fff; }
+        .btn-outline { background: transparent; border: 1px solid var(--p); color: var(--p); }
+        
+        .exercise-box { text-align: center; padding: 20px; background: #0f172a; border-radius: 15px; border: 1px dashed var(--p); }
+        .gif-placeholder { width: 100%; max-width: 300px; height: 200px; background: #1e293b; margin: 0 auto 15px; border-radius: 12px; display: flex; align-items: center; justify-content: center; color: #475569; }
+        
+        .tool-item { display: flex; justify-content: space-between; align-items: center; padding: 10px 0; border-bottom: 1px solid rgba(255,255,255,0.05); }
+        .tool-item span { flex: 1; font-size: 14px; padding-left: 10px; }
+        .tool-item select { width: 70px; padding: 5px; }
+        
+        .book-content { font-size: 14px; text-align: justify; }
+        ul { padding-right: 20px; }
     </style>
 </head>
 <body onload="initApp()">
 
-<div id="step0" class="screen active">
-    <div class="header"><h2 style="color:var(--p); margin:0;">Research Protocol</h2></div>
+<div class="header">
+    <h2>جامعة العاصيمة - كلية التمريض</h2>
+    <small style="color: var(--gold)">الباحث: د. عبد الرحمن محمد فودة</small>
+</div>
+
+<div id="screen-book" class="screen active">
     <div class="card">
-        <p style="font-size: 14px; line-height: 1.6;">بصفتي باحثاً من جامعة المنوفية، أقر بالالتزام بالمعايير الأخلاقية للبحث العلمي وضمان سرية بيانات المرضى.</p>
-        <label>تحديد مجموعة الدراسة (Group Allocation):</label>
-        <select id="group-select">
-            <option value="Intervention">Intervention (Liuzijue Exercise)</option>
-            <option value="Control">Control (Standard Care)</option>
-        </select>
-        <button class="btn-primary" onclick="acceptConsent()">موافقة وبدء الدراسة ✅</button>
+        <h3>الكتيب التعليمي للمريض</h3>
+        <div class="book-content">
+            <p><strong>ما هو برنامج تمارين Liuzijue؟</strong><br>هو أسلوب تنفسي صيني تقليدي يعتمد على 6 أصوات (Xu, He, Hu, Si, Chui, Xi) مع حركات بدنية لتحسين كفاءة الرئة.</p>
+            <p style="color: var(--p)"><strong>نصائح هامة:</strong></p>
+            <ul>
+                <li>توقف عن التمرين إذا شعرت بدوخة أو نهجان شديد.</li>
+                <li>حافظ على استقامة الظهر أثناء الجلوس أو الوقوف.</li>
+                <li>اشرب كميات كافية من الماء لترطيب الممرات الهوائية.</li>
+            </ul>
+        </div>
+        <button class="btn btn-primary" onclick="showScreen('screen-tool1')">بدء استبيان المريض (Tool I) ➡️</button>
     </div>
 </div>
 
-<div id="step1" class="screen">
-    <div class="header"><h2 style="color:var(--p); margin:0;">Tool I: Sociodemographic</h2></div>
+<div id="screen-tool1" class="screen">
     <div class="card">
-        <label>العمر (Age Group):</label>
-        <select id="age"><option value="">اختر الفئة</option><option value="18-30">18-30</option><option value="31-40">31-40</option><option value="41-50">41-50</option><option value="51-60">51-60</option></select>
-        <label>النوع (Gender):</label>
-        <select id="gender"><option value="">اختر</option><option value="Male">ذكر</option><option value="Female">أنثى</option></select>
-        <button class="btn-primary" onclick="validateStep1()">حفظ البيانات ➡️</button>
+        <h3>الأداة الأولى: البيانات الديموغرافية</h3>
+        <label>1. العمر:</label>
+        <select id="age"><option value="18-30">18-30 سنة</option><option value="31-40">31-40 سنة</option><option value="41-50">41-50 سنة</option><option value="51-60">51-60 سنة</option></select>
+        
+        <label>2. النوع:</label>
+        <select id="gender"><option value="Male">ذكر</option><option value="Female">أنثى</option></select>
+        
+        <label>3. الحالة الاجتماعية:</label>
+        <select id="marital"><option value="Single">أعزب</option><option value="Married">متزوج</option><option value="Divorced">مطلق</option><option value="Widowed">أرمل</option></select>
+        
+        <label>4. التعليم:</label>
+        <select id="edu"><option value="None">أمي</option><option value="Primary">ابتدائي</option><option value="Secondary">ثانوي</option><option value="University">جامعي</option></select>
+        
+        <label>5. محل الإقامة:</label>
+        <select id="residence"><option value="Urban">حضر</option><option value="Rural">ريف</option></select>
+
+        <label>6. الدخل الشهري:</label>
+        <select id="income"><option value="Enough">كافٍ</option><option value="Not Enough">غير كافٍ</option></select>
+
+        <label>7. وضع التدخين الحالي:</label>
+        <select id="smoking"><option value="Current">مدخن حالي</option><option value="Former">مدخن سابق</option><option value="Never">لا يدخن</option></select>
+
+        <button class="btn btn-primary" onclick="saveTool1()">حفظ والانتقال لتقييم النهجان ➡️</button>
     </div>
 </div>
 
-<div id="step2" class="screen">
-    <div class="header"><h2 style="color:var(--p); margin:0;">Baseline Assessment</h2></div>
-    <div class="card" id="tool2-container"></div>
-    <button class="btn-primary" onclick="validateStep2()">اعتماد نقطة البداية ✅</button>
+<div id="screen-tool2" class="screen">
+    <div class="card">
+        <h3>الأداة الثانية: تقييم ضيق التنفس (Baseline)</h3>
+        <p style="font-size: 12px; color: var(--gold)">يرجى تحديد درجة النهجان من 0 (لا يوجد) إلى 5 (أقصى درجة) لكل نشاط:</p>
+        <div id="tool2-items"></div>
+        <button class="btn btn-primary" onclick="saveBaseline()">اعتماد التقييم وبدء التدريب ✅</button>
+    </div>
 </div>
 
-<div id="main-app" class="screen">
-    <div class="header">
-        <h2 style="color:var(--p); margin:0;">Clinical Dashboard</h2>
-        <p id="patient-display" style="font-size:11px;"></p>
-    </div>
-    <div class="safety-alert">⚠️ البروتوكول الأمني: توقف فوراً إذا انخفض الأكسجين عن 88%.</div>
+<div id="screen-exercise" class="screen">
     <div class="card">
-        <h3>تسجيل الجلسة (Monitoring)</h3>
-        <label>Dyspnea Pre (0-5):</label>
-        <select id="d-pre"><option value="0">0</option><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option></select>
-        <label>SpO2 Pre (%):</label>
-        <input type="number" id="s-pre" placeholder="القيمة الحالية">
-        <button class="btn-primary" id="start-btn" onclick="runClinicalSession()">▶️ تشغيل التدخل الإكلينيكي</button>
+        <h3 id="ex-title">تمرين Xu (شووو)</h3>
+        <div class="exercise-box">
+            <div class="gif-placeholder" id="ex-gif">
+                <img src="" id="current-gif" style="display:none; width:100%; border-radius:10px;">
+                <span id="gif-label">عرض الفيديو المتحرك</span>
+            </div>
+            <p id="ex-text" style="font-size: 14px;"></p>
+            <button class="btn btn-outline" onclick="playRecord()">🔊 تشغيل الشرح الصوتي (ريكورد بصوتك)</button>
+        </div>
+        <div style="display: flex; gap: 10px;">
+            <button class="btn btn-outline" onclick="prevEx()">السابق</button>
+            <button class="btn btn-primary" id="next-btn" onclick="nextEx()">التالي</button>
+        </div>
     </div>
-    <div id="analysis-box" class="status-msg" style="display:none;"></div>
-    <div class="card" style="border-right-color: var(--green);">
-        <button class="btn-export" onclick="exportFinalStudyData()">📥 استخراج التقرير البحثي (SPSS Ready)</button>
-        <button class="btn-danger" style="background:transparent; color:var(--red); border:1px solid var(--red); width:100%; padding:8px; border-radius:8px; margin-top:10px; cursor:pointer;" onclick="resetStudy()">Reset Clinical Study</button>
+</div>
+
+<div id="screen-daily" class="screen">
+    <div class="card">
+        <h3>متابعة الجلسة اليومية</h3>
+        <label>نسبة الأكسجين قبل التمرين (SpO2 %):</label>
+        <input type="number" id="pre-spo2" placeholder="95">
+        
+        <label>النهجان قبل التمرين (0-5):</label>
+        <select id="pre-dyspnea"><option value="0">0</option><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option></select>
+        
+        <button class="btn btn-primary" onclick="showScreen('screen-exercise')" style="background: var(--green)">▶️ ابدأ التمرين الآن</button>
+        
+        <hr style="margin: 20px 0; opacity: 0.1;">
+        
+        <label>نسبة الأكسجين بعد التمرين (SpO2 %):</label>
+        <input type="number" id="post-spo2" placeholder="97">
+        
+        <label>النهجان بعد التمرين (0-5):</label>
+        <select id="post-dyspnea"><option value="0">0</option><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option></select>
+        
+        <button class="btn btn-primary" onclick="saveDailySession()">حفظ الجلسة 📥</button>
+        <button class="btn btn-outline" onclick="exportData()" style="color: var(--green); border-color: var(--green);">تصدير البيانات للباحث (Excel)</button>
     </div>
 </div>
 
 <script>
-    const activities = ["أثناء الراحة", "أثناء المشي", "صعود الدرج", "أثناء الأكل", "الوقوف", "الاستحمام"];
-    let sessionStartTime = null;
+    const activities = [
+        "أثناء الراحة", "المشي بسرعة عادية", "المشي مع الزملاء", "صعود المرتفعات", "صعود الدرج",
+        "أثناء الأكل", "الوقوف من الكرسي", "تفريش الأسنان", "تمشيط الشعر", "الاستحمام",
+        "ارتداء الملابس", "التقاط أشياء من الأرض", "غسيل الأطباق", "الكنس", "ترتيب السرير",
+        "التسوق", "غسيل الملابس", "غسيل السيارة", "قطع العشب", "ري الزرع",
+        "الأنشطة الجنسية", "تقييد الحياة اليومية", "الخوف من الإرهاق", "الخوف من النهجان"
+    ];
+
+    const exercises = [
+        { name: "تمرين Xu (شووو)", text: "يستهدف الكبد. انطق الصوت مع تحريك اليدين جانباً.", gif: "xu.gif", audio: "xu.mp3" },
+        { name: "تمرين He (هووو)", text: "يستهدف القلب. ارفع اليدين للأعلى برفق مع الزفير.", gif: "he.gif", audio: "he.mp3" },
+        { name: "تمرين Hu (هووو حلقي)", text: "يستهدف الطحال. حرك اليدين أمام المعدة.", gif: "hu.gif", audio: "hu.mp3" },
+        { name: "تمرين Si (سووو)", text: "يستهدف الرئتين (هام جداً). اخرج الزفير مع نطق السين.", gif: "si.gif", audio: "si.mp3" },
+        { name: "تمرين Chui (تشووي)", text: "يستهدف الكلى. انحني قليلاً مع الزفير.", gif: "chui.gif", audio: "chui.mp3" },
+        { name: "تمرين Xi (شييي)", text: "يستهدف تنظيم حرارة الجسم. ارفع اليدين من الجانبين.", gif: "xi.gif", audio: "xi.mp3" }
+    ];
+
+    let currentExIndex = 0;
 
     function initApp() {
-        const container = document.getElementById('tool2-container');
-        activities.forEach((act) => {
-            container.innerHTML += `<div class="tool2-item"><span>${act}</span><select class="t2-val"><option value="">0-5</option>${[0,1,2,3,4,5].map(v => `<option value="${v}">${v}</option>`).join('')}</select></div>`;
+        const list = document.getElementById('tool2-items');
+        activities.forEach((act, i) => {
+            list.innerHTML += `
+                <div class="tool-item">
+                    <span>${i+1}. ${act}</span>
+                    <select class="t2-val"><option value="0">0</option><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option></select>
+                </div>`;
         });
-        if(localStorage.getItem('foda_active')) loadDashboard();
+        if(localStorage.getItem('foda_active')) showScreen('screen-daily');
     }
 
-    function acceptConsent() {
-        localStorage.setItem('foda_group', document.getElementById('group-select').value);
-        document.getElementById('step0').classList.remove('active');
-        document.getElementById('step1').classList.add('active');
-    }
-
-    function validateStep1() {
-        const age = document.getElementById('age').value;
-        const gender = document.getElementById('gender').value;
-        if(!age || !gender) return alert("يرجى ملء البيانات");
-        const pID = "COPD-" + Math.floor(1000 + Math.random()*9000);
-        localStorage.setItem('foda_p', JSON.stringify({id: pID, age, gender, group: localStorage.getItem('foda_group'), start: new Date().toISOString()}));
-        document.getElementById('step1').classList.remove('active');
-        document.getElementById('step2').classList.add('active');
-    }
-
-    function validateStep2() {
-        let total = 0, complete = true;
-        document.querySelectorAll('.t2-val').forEach(s => { if(!s.value) complete = false; else total += parseInt(s.value); });
-        if(!complete) return alert("يرجى تقييم كافة العناصر");
-        localStorage.setItem('foda_baseline', total);
-        localStorage.setItem('foda_active', true);
-        loadDashboard();
-    }
-
-    function loadDashboard() {
+    function showScreen(id) {
         document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
-        document.getElementById('main-app').classList.add('active');
-        const p = JSON.parse(localStorage.getItem('foda_p'));
-        document.getElementById('patient-display').innerText = `ID: ${p.id} | Group: ${p.group}`;
+        document.getElementById(id).classList.add('active');
+        window.scrollTo(0,0);
+        if(id === 'screen-exercise') updateExUI();
     }
 
-    async function runClinicalSession() {
-        const preS = parseInt(document.getElementById('s-pre').value);
-        const preD = parseInt(document.getElementById('d-pre').value);
-        const btn = document.getElementById('start-btn');
-        
-        if(isNaN(preS) || preS < 70 || preS > 100) return alert("قيمة الأكسجين قبل الجلسة غير منطقية!");
-        
-        // 3️⃣ Start Session Duration Tracking
-        sessionStartTime = Date.now();
-        btn.disabled = true; btn.innerText = "⏳ الجلسة جارية (Intervention)...";
-        
-        await new Promise(r => setTimeout(r, 2000)); // محاكاة مدة التدخل
+    function saveTool1() {
+        const data = { age: document.getElementById('age').value, gender: document.getElementById('gender').value };
+        localStorage.setItem('foda_t1', JSON.stringify(data));
+        showScreen('screen-tool2');
+    }
 
-        let postSInput = prompt("نسبة الأكسجين بعد الجلسة (%):", preS);
-        let postDInput = prompt("تقييم النهجان بعد الجلسة (0-5):", preD);
-        
-        let postS = parseInt(postSInput);
-        let postD = parseInt(postDInput);
-        let duration = Math.round((Date.now() - sessionStartTime) / 60000); // 3️⃣ Duration in minutes
+    function saveBaseline() {
+        let scores = [];
+        document.querySelectorAll('.t2-val').forEach(s => scores.push(s.value));
+        localStorage.setItem('foda_baseline', JSON.stringify(scores));
+        localStorage.setItem('foda_active', true);
+        showScreen('screen-daily');
+    }
 
-        let logs = JSON.parse(localStorage.getItem('foda_logs')) || [];
-        
-        // 2️⃣ Handle Missing Data (Intent-to-treat)
-        let adherence = true;
-        if(isNaN(postS) || isNaN(postD)) {
-            adherence = false;
-            logs.push({ 
-                session_no: logs.length + 1, datetime: new Date().toISOString(),
-                adherence: false, duration: 0, safety_flag: null,
-                preS, postS: null, preD, postD: null
-            });
-            localStorage.setItem('foda_logs', JSON.stringify(logs));
-            btn.disabled = false; btn.innerText = "▶️ تشغيل التدخل الإكلينيكي";
-            return alert("تم تسجيل الجلسة كبيانات مفقودة (Missing Data).");
-        }
+    function updateExUI() {
+        const ex = exercises[currentExIndex];
+        document.getElementById('ex-title').innerText = ex.name;
+        document.getElementById('ex-text').innerText = ex.text;
+        document.getElementById('next-btn').innerText = (currentExIndex === exercises.length - 1) ? "إنهاء الجلسة ✅" : "التالي";
+        // تحديث الـ GIF إذا كان الرابط متاحاً
+        // document.getElementById('current-gif').src = ex.gif;
+        // document.getElementById('current-gif').style.display = "block";
+    }
 
-        // 1️⃣ Fix Safety Logic (SpO2 < 88 or Drop >= 4)
-        let safety_flag = (postS < 88 || (preS - postS) >= 4);
+    function nextEx() {
+        if(currentExIndex < exercises.length -1) { currentExIndex++; updateExUI(); }
+        else { showScreen('screen-daily'); currentExIndex = 0; }
+    }
 
-        logs.push({ 
-            session_no: logs.length + 1, datetime: new Date().toISOString(),
-            adherence, duration, safety_flag,
-            preS, postS, preD, postD 
-        });
+    function prevEx() { if(currentExIndex > 0) { currentExIndex--; updateExUI(); } }
+
+    function playRecord() {
+        alert("تشغيل الريكورد الصوتي لـ: " + exercises[currentExIndex].name);
+        // let audio = new Audio(exercises[currentExIndex].audio); audio.play();
+    }
+
+    function saveDailySession() {
+        const log = {
+            time: new Date().toISOString(),
+            pre: { spo2: document.getElementById('pre-spo2').value, dys: document.getElementById('pre-dyspnea').value },
+            post: { spo2: document.getElementById('post-spo2').value, dys: document.getElementById('post-dyspnea').value }
+        };
+        let logs = JSON.parse(localStorage.getItem('foda_logs') || "[]");
+        logs.push(log);
         localStorage.setItem('foda_logs', JSON.stringify(logs));
-
-        const box = document.getElementById('analysis-box');
-        box.style.display = "block";
-        box.innerHTML = `✅ سجلت: SpO2 Δ ${postS - preS}% | المدة: ${duration} دقيقة`;
-        btn.disabled = false; btn.innerText = "▶️ تشغيل التدخل الإكلينيكي";
+        alert("تم حفظ الجلسة بنجاح!");
     }
 
-    function exportFinalStudyData() {
-        const p = JSON.parse(localStorage.getItem('foda_p'));
-        const logs = JSON.parse(localStorage.getItem('foda_logs')) || [];
-        const baseline = localStorage.getItem('foda_baseline');
-
-        let csv = "\ufeffTITLE: Clinical Study on COPD Pulmonary Rehabilitation\n\n";
-        csv += "Patient_Code,Group,Age,Gender,Baseline_Dyspnea\n";
-        csv += `${p.id},${p.group},${p.age},${p.gender},${baseline}\n\n`;
-        
-        // 4️⃣ Add Change columns in Export
-        csv += "Session,ISO_Timestamp,Duration_Min,Adherence,Safety_Flag,SpO2_Pre,SpO2_Post,SpO2_Change,Dyspnea_Pre,Dyspnea_Post,Dyspnea_Change\n";
-        
-        logs.forEach(l => { 
-            let s_change = (l.postS !== null) ? (l.postS - l.preS) : "N/A";
-            let d_change = (l.postD !== null) ? (l.postD - l.preD) : "N/A";
-            csv += `${l.session_no},${l.datetime},${l.duration},${l.adherence},${l.safety_flag},${l.preS},${l.postS},${s_change},${l.preD},${l.postD},${d_change}\n`; 
-        });
-        
-        const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
-        const link = document.createElement("a");
-        link.href = URL.createObjectURL(blob);
-        link.download = `Study_Report_${p.id}.csv`;
-        link.click();
+    function exportData() {
+        const data = {
+            patient: JSON.parse(localStorage.getItem('foda_t1')),
+            baseline: JSON.parse(localStorage.getItem('foda_baseline')),
+            sessions: JSON.parse(localStorage.getItem('foda_logs'))
+        };
+        const blob = new Blob([JSON.stringify(data, null, 2)], {type: 'application/json'});
+        const a = document.createElement('a');
+        a.href = URL.createObjectURL(blob);
+        a.download = `Foda_Research_${new Date().toLocaleDateString()}.json`;
+        a.click();
     }
-
-    function resetStudy() { if(confirm("حذف البيانات الإكلينيكية؟")) { localStorage.clear(); location.reload(); } }
 </script>
 </body>
 </html>

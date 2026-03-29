@@ -1,370 +1,133 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-<title>برنامج Liuzijue Qigong - د. عبد الرحمن فودة</title>
-<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;900&display=swap" rel="stylesheet">
-<style>
-:root{
-  --p:#00c8ff;--bg:#04090f;--card:#0b1422;--card2:#0f1d30;
-  --green:#00e676;--gold:#ffc107;--red:#ff5252;
-  --text:#dde6f0;--muted:#526070;--border:#162436;
-}
-*{box-sizing:border-box;margin:0;padding:0;}
-body{font-family:'Tajawal',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;padding-bottom:72px;}
-
-/* ══ SPLASH ══ */
-#splash{
-  position:fixed;inset:0;z-index:9999;
-  background:radial-gradient(ellipse at 50% 20%,#0d2a4a 0%,#04090f 65%);
-  display:flex;flex-direction:column;align-items:center;justify-content:center;
-  padding:24px 20px;text-align:center;transition:opacity .8s ease;overflow-y:auto;
-}
-#splash.hide{opacity:0;pointer-events:none;}
-
-.uni-row{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-bottom:20px;}
-.uni-badge{
-  background:rgba(0,200,255,.07);border:1px solid rgba(0,200,255,.18);
-  border-radius:12px;padding:8px 14px;max-width:160px;
-}
-.uni-name{font-size:11px;font-weight:700;color:var(--p);line-height:1.5;}
-.uni-en{font-size:9px;color:var(--muted);margin-top:2px;}
-
-.splash-lung{font-size:70px;margin-bottom:4px;animation:breathe 3s ease-in-out infinite;}
-@keyframes breathe{0%,100%{transform:scale(1);}50%{transform:scale(1.1);}}
-
-.splash-title{font-size:18px;font-weight:900;color:var(--p);margin-bottom:2px;}
-.splash-sub{font-size:12px;color:var(--muted);margin-bottom:20px;}
-
-.dua-box{
-  background:rgba(255,193,7,.07);border:1px solid rgba(255,193,7,.25);
-  border-radius:16px;padding:16px 18px;margin-bottom:16px;
-  font-size:16px;font-weight:700;color:var(--gold);line-height:1.9;
-  max-width:320px;
-}
-.dua-tts{margin-top:10px;}
-
-.welcome-box{
-  background:rgba(0,200,255,.05);border:1px solid rgba(0,200,255,.15);
-  border-radius:14px;padding:14px 16px;margin-bottom:20px;
-  font-size:13px;color:#94a3b8;line-height:1.8;max-width:320px;
-}
-
-.splash-btn{
-  background:linear-gradient(135deg,#0f4c8a,var(--p));
-  color:#fff;border:none;border-radius:50px;padding:16px 44px;
-  font-family:inherit;font-size:16px;font-weight:900;cursor:pointer;
-  box-shadow:0 0 30px rgba(0,200,255,.25);transition:transform .15s;
-}
-.splash-btn:active{transform:scale(.97);}
-
-/* ══ HEADER ══ */
-.header{
-  background:linear-gradient(180deg,#0b1728 0%,transparent 100%);
-  padding:12px 14px 8px;text-align:center;
-  border-bottom:1px solid var(--border);
-  position:sticky;top:0;z-index:100;backdrop-filter:blur(12px);
-}
-.h-unis{display:flex;justify-content:center;gap:8px;margin-bottom:4px;flex-wrap:wrap;}
-.h-uni{font-size:9px;color:var(--muted);border:1px solid var(--border);border-radius:20px;padding:2px 8px;}
-.header h2{color:var(--p);font-size:13px;font-weight:900;margin-bottom:1px;}
-.header p{color:var(--gold);font-size:10px;}
-
-/* ══ TABS ══ */
-.nav-tabs{display:flex;background:var(--card);border-bottom:1px solid var(--border);overflow-x:auto;scrollbar-width:none;}
-.nav-tabs::-webkit-scrollbar{display:none;}
-.tab-btn{
-  flex:1;min-width:58px;padding:9px 3px;
-  border:none;background:transparent;color:var(--muted);
-  font-family:inherit;font-size:9px;cursor:pointer;
-  border-bottom:3px solid transparent;transition:all .2s;
-  display:flex;flex-direction:column;align-items:center;gap:1px;
-}
-.tab-btn.active{color:var(--p);border-bottom-color:var(--p);font-weight:700;}
-.tab-btn .ti{font-size:17px;}
-
-/* ══ SCREENS ══ */
-.screen{display:none;padding:12px;animation:fadeUp .3s ease;}
-.screen.active{display:block;}
-@keyframes fadeUp{from{opacity:0;transform:translateY(8px);}to{opacity:1;transform:none;}}
-
-/* ══ CARDS ══ */
-.card{background:var(--card2);border-radius:14px;padding:14px;margin-bottom:12px;border:1px solid var(--border);}
-.card-title{
-  color:var(--gold);font-size:13px;font-weight:700;
-  margin-bottom:12px;padding-bottom:8px;border-bottom:1px solid var(--border);
-  display:flex;align-items:center;justify-content:space-between;gap:6px;
-}
-
-/* ══ TTS BUTTON ══ */
-.tts{
-  background:rgba(0,200,255,.1);border:1px solid rgba(0,200,255,.2);
-  border-radius:20px;padding:3px 9px;font-size:10px;color:var(--p);
-  cursor:pointer;font-family:inherit;white-space:nowrap;flex-shrink:0;
-  transition:background .2s;
-}
-.tts:hover{background:rgba(0,200,255,.2);}
-.tts.speaking{background:rgba(0,230,118,.2);border-color:var(--green);color:var(--green);}
-
-/* ══ BUTTONS ══ */
-.btn{display:block;width:100%;padding:14px;border:none;border-radius:12px;font-family:inherit;font-weight:900;font-size:14px;cursor:pointer;transition:all .15s;}
-.btn-primary{background:linear-gradient(135deg,#0d3d7a,var(--p));color:#fff;}
-.btn-green{background:linear-gradient(135deg,#1b4d2e,var(--green));color:#fff;}
-.btn-gray{background:#101e2f;color:var(--text);border:1px solid var(--border);}
-.btn+.btn{margin-top:8px;}
-.btn:active{transform:scale(.98);}
-
-/* ══ FORM ══ */
-.q-wrap{margin-bottom:14px;}
-.q-label{
-  display:flex;align-items:center;justify-content:space-between;gap:6px;
-  margin-bottom:6px;font-size:12px;color:var(--muted);font-weight:700;
-}
-select,input[type=number],input[type=text]{
-  width:100%;padding:10px 12px;border-radius:9px;
-  border:1px solid var(--border);background:#08111d;
-  color:var(--text);font-family:inherit;font-size:13px;
-}
-select:focus,input:focus{outline:2px solid var(--p);border-color:transparent;}
-.check-group{display:flex;flex-wrap:wrap;gap:6px;margin-top:4px;}
-.check-item{
-  display:flex;align-items:center;gap:5px;
-  background:#08111d;border:1px solid var(--border);border-radius:8px;
-  padding:7px 10px;font-size:12px;cursor:pointer;transition:all .15s;flex:1;min-width:120px;
-}
-.check-item input[type=checkbox]{width:14px;height:14px;accent-color:var(--p);}
-.part-head{
-  background:rgba(0,200,255,.05);border-right:3px solid var(--p);
-  border-radius:0 10px 10px 0;padding:9px 12px;margin:14px 0 10px;
-  font-size:12px;font-weight:700;color:var(--p);
-  display:flex;align-items:center;justify-content:space-between;gap:6px;
-}
-
-/* ══ TOOL2 ══ */
-.t2-item{background:var(--card);border-radius:11px;padding:11px;margin-bottom:8px;}
-.t2-q{font-size:12px;margin-bottom:8px;display:flex;align-items:flex-start;justify-content:space-between;gap:6px;}
-.t2-num{color:var(--p);font-weight:700;flex-shrink:0;}
-.t2-scale{display:grid;grid-template-columns:repeat(6,1fr);gap:3px;}
-.t2-opt{
-  background:#08111d;border:1px solid var(--border);border-radius:7px;
-  padding:8px 2px;text-align:center;cursor:pointer;transition:all .15s;font-size:11px;font-weight:700;
-}
-.t2-opt.sel{border-color:var(--p);background:rgba(0,200,255,.12);color:var(--p);}
-.score-box{background:rgba(0,200,255,.05);border:1px solid rgba(0,200,255,.15);border-radius:12px;padding:14px;text-align:center;margin:12px 0;}
-
-/* ══ EXERCISE ══ */
-.prog-bar{height:3px;background:var(--border);overflow:hidden;}
-.prog-fill{height:100%;background:linear-gradient(90deg,var(--p),var(--green));transition:width .4s ease;}
-.ex-top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px;}
-.ex-num{background:rgba(0,200,255,.1);color:var(--p);border-radius:20px;padding:3px 10px;font-size:10px;font-weight:700;}
-.ex-sound{display:inline-flex;align-items:center;gap:5px;background:rgba(0,230,118,.07);border:1px solid rgba(0,230,118,.2);border-radius:7px;padding:4px 10px;font-size:12px;font-weight:700;color:var(--green);margin-bottom:4px;}
-.ex-organ{font-size:11px;color:var(--muted);margin-bottom:10px;}
-.yt-wrap{
-  position:relative;width:100%;padding-bottom:56.25%;
-  border-radius:12px;overflow:hidden;background:#000;margin-bottom:12px;
-  border:1px solid var(--border);
-}
-.yt-wrap iframe{position:absolute;inset:0;width:100%;height:100%;border:none;}
-.ex-steps{background:rgba(0,0,0,.25);border-radius:10px;padding:12px;margin-bottom:12px;}
-.ex-steps h4{font-size:11px;color:var(--muted);margin-bottom:6px;}
-.ex-steps ol{padding-right:14px;}
-.ex-steps li{font-size:12px;line-height:1.8;color:#a0b4c8;margin-bottom:1px;}
-.ex-nav{display:flex;gap:8px;}
-.ex-nav .btn{flex:1;padding:12px;}
-
-/* ══ SUMMARY ══ */
-.sum-badge{text-align:center;padding:20px;background:rgba(0,200,255,.04);border-radius:14px;margin-bottom:12px;border:1px solid rgba(0,200,255,.12);}
-.sum-badge .bi{font-size:54px;display:block;margin-bottom:6px;}
-.data-row{display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--border);font-size:12px;}
-.data-row .lbl{color:var(--muted);}
-.data-row .val{font-weight:700;}
-
-/* ══ INFO BOXES ══ */
-.info-box{background:rgba(255,193,7,.06);border-right:3px solid var(--gold);border-radius:0 9px 9px 0;padding:10px 12px;margin-bottom:12px;font-size:12px;line-height:1.8;}
-.warn-box{background:rgba(255,82,82,.06);border-right:3px solid var(--red);border-radius:0 9px 9px 0;padding:10px 12px;margin-bottom:12px;font-size:12px;line-height:1.8;}
-
-/* ══ TOAST ══ */
-#toast{position:fixed;bottom:80px;left:50%;transform:translateX(-50%) translateY(16px);background:#1a2d45;color:var(--text);padding:9px 18px;border-radius:30px;font-size:12px;opacity:0;transition:all .3s;z-index:998;white-space:nowrap;border:1px solid var(--border);pointer-events:none;}
-#toast.show{opacity:1;transform:translateX(-50%) translateY(0);}
-
-/* ══ SPEAKING INDICATOR ══ */
-#speaking-bar{position:fixed;bottom:72px;left:0;right:0;background:rgba(0,200,255,.1);border-top:1px solid rgba(0,200,255,.2);padding:6px;text-align:center;font-size:11px;color:var(--p);display:none;z-index:97;}
-#speaking-bar.show{display:block;}
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pulmonary Rehab Protocol | Dr. Foda</title>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700;900&display=swap" rel="stylesheet">
+    <style>
+        /* الألوان الاحترافية لل dark mode */
+        :root { --p: #00e5ff; --bg: #050a14; --card: #111b2d; --green: #00e676; --gold: #ffd700; --red: #ff5252; --text: #e2e8f0; }
+        body { font-family: 'Tajawal', sans-serif; background: var(--bg); color: var(--text); margin: 0; padding-bottom: 30px; line-height: 1.8; }
+        .screen { display: none; padding: 20px; animation: fadeIn 0.4s ease; }
+        .active { display: block; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        
+        /* 2. الهيدر المشترك للجامعتين */
+        .header { background: var(--card); padding: 25px; text-align: center; border-bottom: 4px solid var(--p); box-shadow: 0 4px 20px rgba(0,229,255,0.2); }
+        .uni-logos { font-size: 16px; color: var(--gold); font-weight: bold; margin-bottom: 5px; }
+        
+        .card { background: var(--card); padding: 25px; border-radius: 18px; margin-bottom: 20px; border-right: 6px solid var(--p); box-shadow: 0 8px 25px rgba(0,0,0,0.6); cursor: pointer; }
+        
+        /* 1. الخط الكبير الواضح */
+        h2 { color: var(--p); margin: 0; font-weight: 900; font-size: 26px; }
+        h3 { color: var(--gold); font-size: 20px; margin-top: 0; border-bottom: 2px solid #2d3a54; padding-bottom: 10px; }
+        p, li { font-size: 18px; color: #cbd5e1; }
+        
+        label { display: block; margin: 20px 0 10px; font-size: 18px; color: #94a3b8; font-weight: bold; }
+        select, input { width: 100%; padding: 16px; border-radius: 12px; border: none; background: #1e293b; color: white; font-family: inherit; font-size: 18px; box-sizing: border-box; }
+        
+        .btn { border: none; width: 100%; padding: 20px; border-radius: 16px; font-weight: 900; font-size: 18px; cursor: pointer; transition: 0.3s; margin-top: 15px; display: flex; align-items: center; justify-content: center; gap: 12px; }
+        .btn-primary { background: linear-gradient(45deg, #1a73e8, var(--p)); color: #fff; }
+        .btn-green { background: linear-gradient(45deg, #2e7d32, var(--green)); color: #fff; }
+        .btn-outline { background: transparent; border: 2px solid var(--p); color: var(--p); }
+        
+        /* 3. حاوية الـ GIF/الصور الاحترافية */
+        .exercise-box { text-align: center; padding: 15px; background: #0f172a; border-radius: 15px; margin: 15px 0; border: 1px dashed var(--p); }
+        .exercise-gif { width: 100%; max-width: 350px; border-radius: 12px; background: #1e293b; min-height: 250px; display: block; margin: 0 auto 15px; object-fit: cover; }
+        
+        .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
+        .tool-item { display: flex; justify-content: space-between; align-items: center; padding: 15px 0; border-bottom: 1px solid rgba(255,255,255,0.05); }
+        .tool-item span { flex: 1; font-size: 16px; padding-left: 10px; }
+        .tool-item select { width: 90px; padding: 8px; font-size: 16px; }
+        
+        .book-content p { cursor: pointer; }
+        .book-content p:hover { color: var(--p); }
+    </style>
 </head>
-<body>
+<body onload="initApp()">
 
-<!-- ══════════════════════════════════════
-     SPLASH SCREEN
-══════════════════════════════════════ -->
-<div id="splash">
-  <div class="uni-row">
-    <div class="uni-badge">
-      <div class="uni-name">جامعة الريادة للعلوم والتكنولوجيا</div>
-      <div class="uni-en">Al Ryada University for Science & Technology</div>
-    </div>
-    <div class="uni-badge">
-      <div class="uni-name">جامعة العاصمة</div>
-      <div class="uni-en">Al Asema University</div>
-    </div>
-  </div>
-
-  <div class="splash-lung">🫁</div>
-  <div class="splash-title">برنامج إعادة التأهيل الرئوي</div>
-  <div class="splash-sub">Liuzijue Qigong | د. عبد الرحمن فودة</div>
-
-  <div class="dua-box">
-    اللهم علِّمنا ما ينفعنا<br>وانفعنا بما علَّمتنا
-    <div class="dua-tts">
-      <button class="tts" onclick="speak('اللهم علمنا ما ينفعنا وانفعنا بما علمتنا', this)">🔊 استمع للدعاء</button>
-    </div>
-  </div>
-
-  <div class="welcome-box" id="welcome-text">
-    أهلاً وسهلاً بك في برنامج إعادة التأهيل الرئوي،
-    المُقدَّم من كلية التمريض بجامعة الريادة للعلوم والتكنولوجيا
-    بالتعاون مع جامعة العاصمة.
-    هذا البرنامج صُمِّم خصيصاً لتحسين تنفسك وجودة حياتك
-    من خلال تمارين الأصوات الستة.
-  </div>
-  <button class="tts" style="margin-bottom:14px" onclick="speak(document.getElementById('welcome-text').innerText, this)">🔊 استمع للترحيب</button>
-
-  <button class="splash-btn" onclick="enterApp()">ابدأ البرنامج ➡️</button>
-</div>
-
-<!-- ══════════════════════════════════════
-     MAIN APP
-══════════════════════════════════════ -->
 <div class="header">
-  <div class="h-unis">
-    <span class="h-uni">جامعة الريادة للعلوم والتكنولوجيا</span>
-    <span class="h-uni">جامعة العاصمة</span>
-  </div>
-  <h2>🫁 برنامج Liuzijue Qigong</h2>
-  <p>كلية التمريض | د. عبد الرحمن فودة</p>
+    <div class="uni-logos">جامعة العاصمة 🤝 جامعة المنوفية</div>
+    <h2>برنامج التأهيل الرئوي (د. عبد الرحمن فودة)</h2>
 </div>
 
-<div class="nav-tabs">
-  <button class="tab-btn active" onclick="goTab('s-booklet',this)"><span class="ti">📖</span>الكتيب</button>
-  <button class="tab-btn" onclick="goTab('s-tool1',this)"><span class="ti">📋</span>بيانات</button>
-  <button class="tab-btn" onclick="goTab('s-tool2',this)"><span class="ti">😮‍💨</span>ضيق</button>
-  <button class="tab-btn" onclick="goTab('s-exercise',this)"><span class="ti">🧘</span>تمارين</button>
-  <button class="tab-btn" onclick="goTab('s-summary',this)"><span class="ti">📊</span>ملخص</button>
+<div id="screen-booklet" class="screen active">
+    <div class="card">
+        <h3>📖 دليلك الصحي للتنفس</h3>
+        <p style="font-size:14px; color:var(--text); text-align:center;">💡 (اضغط على أي نص ليسألك التطبيق بصوت د. فودة)</p>
+        <div class="book-content" id="booklet-text">
+            <p onclick="speakText(this)"><strong>ما هو برنامج Liuzijue؟</strong> هو نظام تمارين تنفسية صينية تقليدية تعتمد على إخراج 6 أصوات مختلفة لتحسين كفاءة الرئة.</p>
+            <p onclick="speakText(this)"><strong>📍 إرشادات التغذية:</strong> تناول وجبات صغيرة متكررة لتجنب الضغط على الحجاب الحاجز. اشرب السوائل بكثرة لتسهيل التخلص من البلغم.</p>
+        </div>
+        <button class="btn btn-primary" onclick="showScreen('screen-tool1')">ابدأ تقييم الحالة ➡️</button>
+    </div>
 </div>
 
-<!-- ══ BOOKLET ══ -->
-<div id="s-booklet" class="screen active">
-  <div class="card">
-    <div class="card-title">
-      📖 مرحباً بك في برنامج Liuzijue Qigong
-      <button class="tts" onclick="readCard('booklet-content')">🔊</button>
+<div id="screen-tool1" class="screen">
+    <div class="card">
+        <h3>📋 الأداة الأولى: البيانات الأولية</h3>
+        <label>العمر:</label>
+        <select id="t1-age"><option>18-30</option><option>31-40</option><option>41-50</option><option>51-60</option></select>
+        <label>وضع التدخين:</label>
+        <select id="t1-smoke"><option>مدخن حالي</option><option>مدخن سابق</option><option>لم يسبق له التدخين</option></select>
+        <button class="btn btn-primary" onclick="saveTool1()">حفظ والبدء بالتمارين ➡️</button>
     </div>
-    <div id="booklet-content">
-      <div class="info-box">
-        هذا البرنامج مصمَّم لمرضى الانسداد الرئوي المزمن (COPD) ويهدف إلى تخفيف ضيق التنفس وتحسين جودة الحياة باستخدام تمارين الأصوات الستة.
-      </div>
-
-      <div class="part-head">
-        🎵 الأصوات الستة وأعضاؤها
-        <button class="tts" onclick="speak('الأصوات الستة هي: شووو للكبد، هههه للقلب، هووو للطحال، سووو للرئتين وهو الأهم لمرضى الانسداد الرئوي، تشوي للكلى، شي لثلاثي المحارق.', this)">🔊</button>
-      </div>
-      <table style="width:100%;border-collapse:collapse;font-size:12px;margin-bottom:12px;">
-        <tr style="background:rgba(0,200,255,.07);">
-          <th style="padding:7px 8px;text-align:right;border-bottom:1px solid var(--border);color:var(--gold);">الصوت</th>
-          <th style="padding:7px 8px;text-align:right;border-bottom:1px solid var(--border);color:var(--gold);">النطق</th>
-          <th style="padding:7px 8px;text-align:right;border-bottom:1px solid var(--border);color:var(--gold);">العضو</th>
-        </tr>
-        <tr><td style="padding:6px 8px;border-bottom:1px solid rgba(255,255,255,.03);">Xu 嘘</td><td style="padding:6px 8px;border-bottom:1px solid rgba(255,255,255,.03);">شووو</td><td style="padding:6px 8px;border-bottom:1px solid rgba(255,255,255,.03);">🫀 الكبد</td></tr>
-        <tr><td style="padding:6px 8px;border-bottom:1px solid rgba(255,255,255,.03);">He 呵</td><td style="padding:6px 8px;border-bottom:1px solid rgba(255,255,255,.03);">هههه</td><td style="padding:6px 8px;border-bottom:1px solid rgba(255,255,255,.03);">❤️ القلب</td></tr>
-        <tr><td style="padding:6px 8px;border-bottom:1px solid rgba(255,255,255,.03);">Hu 呼</td><td style="padding:6px 8px;border-bottom:1px solid rgba(255,255,255,.03);">هووو</td><td style="padding:6px 8px;border-bottom:1px solid rgba(255,255,255,.03);">🫄 الطحال</td></tr>
-        <tr style="background:rgba(0,200,255,.04)"><td style="padding:6px 8px;border-bottom:1px solid rgba(255,255,255,.03);font-weight:700;color:var(--p);">Si 呬 ⭐</td><td style="padding:6px 8px;border-bottom:1px solid rgba(255,255,255,.03);font-weight:700;color:var(--p);">سووو</td><td style="padding:6px 8px;border-bottom:1px solid rgba(255,255,255,.03);font-weight:700;color:var(--p);">🫁 الرئتان</td></tr>
-        <tr><td style="padding:6px 8px;border-bottom:1px solid rgba(255,255,255,.03);">Chui 吹</td><td style="padding:6px 8px;border-bottom:1px solid rgba(255,255,255,.03);">تشوي</td><td style="padding:6px 8px;border-bottom:1px solid rgba(255,255,255,.03);">🫘 الكلى</td></tr>
-        <tr><td style="padding:6px 8px;">Xi 嘻</td><td style="padding:6px 8px;">شي</td><td style="padding:6px 8px;">🔥 ثلاثي المحارق</td></tr>
-      </table>
-
-      <div class="part-head">🥦 إرشادات التغذية <button class="tts" onclick="speak('إرشادات التغذية: تناول وجبات صغيرة متكررة لتجنب ضيق التنفس أثناء الأكل. اشرب السوائل بكثرة لتسهيل إخراج البلغم. تجنب الأطعمة المسببة للانتفاخ. أكثر من الخضروات والفواكه.', this)">🔊</button></div>
-      <ul style="font-size:12px;padding-right:14px;line-height:1.9;margin-bottom:12px;">
-        <li>تناول وجبات صغيرة متكررة لتجنب ضيق التنفس أثناء الأكل.</li>
-        <li>اشرب السوائل بكثرة (2-3 لتر/يوم) لتسهيل إخراج البلغم.</li>
-        <li>تجنب الأطعمة المسببة للانتفاخ كالبقوليات والمشروبات الغازية.</li>
-        <li>أكثر من الخضروات والفواكه الغنية بمضادات الأكسدة.</li>
-      </ul>
-
-      <div class="warn-box">
-        ⚠️ أوقف التمرين فوراً عند ألم الصدر أو الدوخة الشديدة واستشر الطاقم الطبي.
-      </div>
-    </div>
-    <button class="btn btn-primary" onclick="goTab('s-tool1',getTabs()[1])">التالي: بيانات المريض ➡️</button>
-  </div>
 </div>
 
-<!-- ══ TOOL I ══ -->
-<div id="s-tool1" class="screen">
-  <div class="card">
-    <div class="card-title">
-      📋 الأداة الأولى: استبيان المريض
-      <button class="tts" onclick="speak('الأداة الأولى: استبيان بيانات المريض. يرجى الإجابة على جميع الأسئلة التالية.', this)">🔊</button>
+<div id="screen-exercise" class="screen">
+    <div class="card">
+        <h3 id="ex-title">تمرين Si (سووو)</h3>
+        <div class="exercise-box">
+            <img src="si_sitting.png" id="main-gif" class="exercise-gif" alt="تمرين متحرك">
+            <p id="ex-desc" style="font-weight:bold; color:var(--p); cursor:pointer;" onclick="speakText(this)"></p>
+            <button class="btn btn-outline" style="border-color:var(--green); color:var(--green)" onclick="playAudioInstruction()">🔊 اسمع شرح بصوتي (ريكورد)</button>
+        </div>
+        <div class="grid-2">
+            <button class="btn btn-outline" onclick="prevEx()">السابق</button>
+            <button class="btn btn-primary" id="next-ex-btn" onclick="nextEx()">التالي</button>
+        </div>
     </div>
+</div>
 
-    <!-- Part 1 -->
-    <div class="part-head">الجزء الأول: الخصائص الاجتماعية والديموغرافية <button class="tts" onclick="speak('الجزء الأول: الخصائص الاجتماعية والديموغرافية للمريض', this)">🔊</button></div>
+<script>
+    const exercises = [
+        { title: "تمرين Xu (شووو)", desc: "يستهدف الكبد. انطق الصوت مع حركة اليدين جانباً.", gif: "xu.gif", audio: "xu.mp3" },
+        { title: "تمرين He (هووو)", desc: "لتقوية القلب. ارفع يديك للأعلى برفق مع الزفير.", gif: "he.gif", audio: "he.mp3" },
+        { title: "تمرين Si (سووو)", desc: "يستهدف الرئتين مباشرة (هام جداً). اخرج الزفير مع نطق السين.", gif: "si.gif", audio: "si.mp3" },
+        // أضف البقية هنا..
+    ];
+    let current = 0;
 
-    <div class="q-wrap">
-      <div class="q-label">١. العمر <button class="tts" onclick="speak('السؤال الأول: كم عمرك؟', this)">🔊</button></div>
-      <select id="q1"><option value="">-- اختر --</option><option>من 18 إلى 30 سنة</option><option>من 31 إلى 40 سنة</option><option>من 41 إلى 50 سنة</option><option>من 51 إلى 60 سنة</option></select>
-    </div>
+    function initApp() { updateUI(); }
+    function showScreen(id) {
+        document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+        document.getElementById(id).classList.add('active');
+        window.scrollTo(0,0);
+    }
 
-    <div class="q-wrap">
-      <div class="q-label">٢. النوع <button class="tts" onclick="speak('السؤال الثاني: ما جنسك؟', this)">🔊</button></div>
-      <select id="q2"><option value="">-- اختر --</option><option>ذكر</option><option>أنثى</option></select>
-    </div>
+    function updateUI() {
+        const ex = exercises[current];
+        document.getElementById('ex-title').innerText = ex.title;
+        document.getElementById('ex-desc').innerText = ex.desc;
+        // 3. الربط البرمجي للـ GIF: بمجرد تسمية ملف الـ GIF سيظهر فوراً
+        document.getElementById('main-gif').src = ex.gif; 
+    }
 
-    <div class="q-wrap">
-      <div class="q-label">٣. الحالة الاجتماعية <button class="tts" onclick="speak('السؤال الثالث: ما حالتك الاجتماعية؟', this)">🔊</button></div>
-      <select id="q3"><option value="">-- اختر --</option><option>أعزب / عزباء</option><option>متزوج / ة</option><option>مطلق / ة</option><option>أرمل / ة</option></select>
-    </div>
+    // 5. خاصية النطق للنصوص (Voice Assistant)
+    function speakText(element) {
+        const text = element.innerText;
+        const msg = new SpeechSynthesisUtterance();
+        msg.text = text;
+        msg.lang = 'ar-EG'; // اللغة العربية، لهجة مصرية
+        msg.rate = 0.9; // سرعة القراءة
+        window.speechSynthesis.speak(msg);
+    }
 
-    <div class="q-wrap">
-      <div class="q-label">٤. المستوى التعليمي <button class="tts" onclick="speak('السؤال الرابع: ما مستواك التعليمي؟', this)">🔊</button></div>
-      <select id="q4"><option value="">-- اختر --</option><option>لا يستطيع القراءة والكتابة</option><option>التعليم الابتدائي</option><option>التعليم الثانوي</option><option>التعليم الجامعي</option></select>
-    </div>
-
-    <div class="q-wrap">
-      <div class="q-label">٥. الوظيفة <button class="tts" onclick="speak('السؤال الخامس: هل تعمل حالياً؟', this)">🔊</button></div>
-      <select id="q5"><option value="">-- اختر --</option><option>يعمل</option><option>لا يعمل</option></select>
-    </div>
-
-    <div class="q-wrap">
-      <div class="q-label">٦. مكان الإقامة <button class="tts" onclick="speak('السؤال السادس: أين تقيم؟', this)">🔊</button></div>
-      <select id="q6"><option value="">-- اختر --</option><option>حضري</option><option>ريفي</option></select>
-    </div>
-
-    <div class="q-wrap">
-      <div class="q-label">٧. الدخل الشهري <button class="tts" onclick="speak('السؤال السابع: هل دخلك الشهري كافٍ؟', this)">🔊</button></div>
-      <select id="q7"><option value="">-- اختر --</option><option>كافٍ</option><option>غير كافٍ</option></select>
-    </div>
-
-    <div class="q-wrap">
-      <div class="q-label">٨. مع من تعيش؟ <button class="tts" onclick="speak('السؤال الثامن: مع من تعيش؟', this)">🔊</button></div>
-      <select id="q8"><option value="">-- اختر --</option><option>بمفردي</option><option>مع الأسرة</option></select>
-    </div>
-
-    <div class="q-wrap">
-      <div class="q-label">٩. عدد أفراد الأسرة <button class="tts" onclick="speak('السؤال التاسع: كم عدد أفراد الأسرة في المنزل؟', this)">🔊</button></div>
-      <input type="number" id="q9" min="1" max="20" placeholder="أدخل العدد">
-    </div>
-
-    <div class="q-wrap">
-      <div class="q-label">١٠. عدد الغرف في المنزل <button class="tts" onclick="speak('السؤال العاشر: كم عدد الغرف في منزلك؟', this)">🔊</button></div>
-      <input type="number" id="q10" min="1" max="20" placeholder="أدخل العدد">
-    </div>
-
-    <div class="q-wrap">
-      <div class="q-label">١١. مؤشر التكدس (الازدحام) <button class="tts" onclick="speak('السؤال الحادي عشر: هل يوجد تكدس في المنزل؟', this)">🔊</button></div>
-      <select id="q11"><option value="">-- اختر --</option><option>نعم</option><option>لا</option></select>
-    </div>
-
-    <div class="q-wrap">
-      <div class="q-label">١٢. نوع العمل (إن كنت تعمل) <button class="tts" onclick="speak('السؤال الثاني عشر: إذا كنت تعمل، ما نوع العمل؟', this)">🔊</button></div>
-      <select id="q12"><option value="">-- اختر --</option><option
+    function playAudioInstruction() {
+        alert("تشغيل الريكورد الصوتي لـ: " + exercises[current].title);
+        // let audio = new Audio(exercises[current].audio); audio.play();
+    }
+</script>
+</body>
+</html>

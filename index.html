@@ -3,103 +3,81 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pulmonary Rehab Protocol | Dr. Foda</title>
+    <title>تطبيق التأهيل الرئوي - د. عبد الرحمن فودة</title>
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700;900&display=swap" rel="stylesheet">
     <style>
-        /* الألوان الاحترافية لل dark mode */
-        :root { --p: #00e5ff; --bg: #050a14; --card: #111b2d; --green: #00e676; --gold: #ffd700; --red: #ff5252; --text: #e2e8f0; }
-        body { font-family: 'Tajawal', sans-serif; background: var(--bg); color: var(--text); margin: 0; padding-bottom: 30px; line-height: 1.8; }
-        .screen { display: none; padding: 20px; animation: fadeIn 0.4s ease; }
+        :root { --p: #00e5ff; --bg: #051020; --card: #111b2d; --gold: #ffd700; --green: #00e676; --text: #f1f5f9; }
+        body { font-family: 'Tajawal', sans-serif; background: var(--bg); color: var(--text); margin: 0; padding-bottom: 40px; }
+        
+        /* الهيدر بلوجو الجامعتين */
+        .header { background: var(--card); padding: 25px; text-align: center; border-bottom: 4px solid var(--p); }
+        .logos { display: flex; justify-content: space-around; font-weight: 900; color: var(--gold); margin-bottom: 10px; font-size: 18px; }
+        
+        /* الخطوط الكبيرة جداً */
+        h2 { font-size: 30px; color: var(--p); margin: 10px 0; }
+        h3 { font-size: 24px; color: var(--gold); }
+        p, li, label { font-size: 20px; line-height: 1.6; }
+        
+        .screen { display: none; padding: 20px; animation: slideUp 0.4s ease; }
         .active { display: block; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes slideUp { from { transform: translateY(20px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
         
-        /* 2. الهيدر المشترك للجامعتين */
-        .header { background: var(--card); padding: 25px; text-align: center; border-bottom: 4px solid var(--p); box-shadow: 0 4px 20px rgba(0,229,255,0.2); }
-        .uni-logos { font-size: 16px; color: var(--gold); font-weight: bold; margin-bottom: 5px; }
-        
-        .card { background: var(--card); padding: 25px; border-radius: 18px; margin-bottom: 20px; border-right: 6px solid var(--p); box-shadow: 0 8px 25px rgba(0,0,0,0.6); cursor: pointer; }
-        
-        /* 1. الخط الكبير الواضح */
-        h2 { color: var(--p); margin: 0; font-weight: 900; font-size: 26px; }
-        h3 { color: var(--gold); font-size: 20px; margin-top: 0; border-bottom: 2px solid #2d3a54; padding-bottom: 10px; }
-        p, li { font-size: 18px; color: #cbd5e1; }
-        
-        label { display: block; margin: 20px 0 10px; font-size: 18px; color: #94a3b8; font-weight: bold; }
-        select, input { width: 100%; padding: 16px; border-radius: 12px; border: none; background: #1e293b; color: white; font-family: inherit; font-size: 18px; box-sizing: border-box; }
-        
-        .btn { border: none; width: 100%; padding: 20px; border-radius: 16px; font-weight: 900; font-size: 18px; cursor: pointer; transition: 0.3s; margin-top: 15px; display: flex; align-items: center; justify-content: center; gap: 12px; }
+        .card { background: var(--card); padding: 25px; border-radius: 20px; border-right: 8px solid var(--p); box-shadow: 0 10px 30px rgba(0,0,0,0.5); margin-bottom: 20px; cursor: pointer; }
+        .btn { width: 100%; padding: 22px; border-radius: 15px; border: none; font-weight: 900; font-size: 22px; cursor: pointer; margin-top: 15px; font-family: inherit; }
         .btn-primary { background: linear-gradient(45deg, #1a73e8, var(--p)); color: #fff; }
-        .btn-green { background: linear-gradient(45deg, #2e7d32, var(--green)); color: #fff; }
-        .btn-outline { background: transparent; border: 2px solid var(--p); color: var(--p); }
         
-        /* 3. حاوية الـ GIF/الصور الاحترافية */
-        .exercise-box { text-align: center; padding: 15px; background: #0f172a; border-radius: 15px; margin: 15px 0; border: 1px dashed var(--p); }
-        .exercise-gif { width: 100%; max-width: 350px; border-radius: 12px; background: #1e293b; min-height: 250px; display: block; margin: 0 auto 15px; object-fit: cover; }
+        /* عرض الـ GIF */
+        .gif-container { background: #000; border-radius: 15px; overflow: hidden; margin: 20px 0; border: 2px solid var(--p); }
+        .gif-container img { width: 100%; display: block; }
         
-        .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
-        .tool-item { display: flex; justify-content: space-between; align-items: center; padding: 15px 0; border-bottom: 1px solid rgba(255,255,255,0.05); }
-        .tool-item span { flex: 1; font-size: 16px; padding-left: 10px; }
-        .tool-item select { width: 90px; padding: 8px; font-size: 16px; }
-        
-        .book-content p { cursor: pointer; }
-        .book-content p:hover { color: var(--p); }
+        .speak-hint { font-size: 14px; color: var(--p); text-align: center; display: block; margin-top: -10px; margin-bottom: 10px; }
     </style>
 </head>
 <body onload="initApp()">
 
 <div class="header">
-    <div class="uni-logos">جامعة العاصمة 🤝 جامعة المنوفية</div>
-    <h2>برنامج التأهيل الرئوي (د. عبد الرحمن فودة)</h2>
+    <div class="logos">
+        <span>جامعة العاصمة</span>
+        <span>جامعة المنوفية</span>
+    </div>
+    <h2>برنامج إعادة التأهيل الرئوي</h2>
+    <p style="margin:0; font-weight:bold;">الباحث: د. عبد الرحمن فودة</p>
 </div>
 
 <div id="screen-booklet" class="screen active">
-    <div class="card">
-        <h3>📖 دليلك الصحي للتنفس</h3>
-        <p style="font-size:14px; color:var(--text); text-align:center;">💡 (اضغط على أي نص ليسألك التطبيق بصوت د. فودة)</p>
-        <div class="book-content" id="booklet-text">
-            <p onclick="speakText(this)"><strong>ما هو برنامج Liuzijue؟</strong> هو نظام تمارين تنفسية صينية تقليدية تعتمد على إخراج 6 أصوات مختلفة لتحسين كفاءة الرئة.</p>
-            <p onclick="speakText(this)"><strong>📍 إرشادات التغذية:</strong> تناول وجبات صغيرة متكررة لتجنب الضغط على الحجاب الحاجز. اشرب السوائل بكثرة لتسهيل التخلص من البلغم.</p>
-        </div>
-        <button class="btn btn-primary" onclick="showScreen('screen-tool1')">ابدأ تقييم الحالة ➡️</button>
+    <div class="card" onclick="speakText(this)">
+        <h3>📖 الكتيب التثقيفي (اضغط لسماع النص)</h3>
+        <p><strong>مقدمة:</strong> يهدف البرنامج لتحسين كفاءة الرئتين وتقليل النهجان باستخدام تمارين الأصوات الستة.</p>
+        <p><strong>🥦 إرشادات:</strong> تناول وجبات صغيرة، واشرب السوائل بكثرة لتسهيل التنفس.</p>
     </div>
-</div>
-
-<div id="screen-tool1" class="screen">
-    <div class="card">
-        <h3>📋 الأداة الأولى: البيانات الأولية</h3>
-        <label>العمر:</label>
-        <select id="t1-age"><option>18-30</option><option>31-40</option><option>41-50</option><option>51-60</option></select>
-        <label>وضع التدخين:</label>
-        <select id="t1-smoke"><option>مدخن حالي</option><option>مدخن سابق</option><option>لم يسبق له التدخين</option></select>
-        <button class="btn btn-primary" onclick="saveTool1()">حفظ والبدء بالتمارين ➡️</button>
-    </div>
+    <button class="btn btn-primary" onclick="showScreen('screen-exercise')">ابدأ التمارين المتحركة ➡️</button>
 </div>
 
 <div id="screen-exercise" class="screen">
     <div class="card">
-        <h3 id="ex-title">تمرين Si (سووو)</h3>
-        <div class="exercise-box">
-            <img src="si_sitting.png" id="main-gif" class="exercise-gif" alt="تمرين متحرك">
-            <p id="ex-desc" style="font-weight:bold; color:var(--p); cursor:pointer;" onclick="speakText(this)"></p>
-            <button class="btn btn-outline" style="border-color:var(--green); color:var(--green)" onclick="playAudioInstruction()">🔊 اسمع شرح بصوتي (ريكورد)</button>
+        <h3 id="ex-title">تمرين Xu (شووو)</h3>
+        <span class="speak-hint">(اضغط على الصورة أو النص للنطق بصوت د. فودة)</span>
+        <div class="gif-container" onclick="speakText(document.getElementById('ex-desc'))">
+            <img id="ex-gif" src="xu_exercise.gif" alt="تمرين متحرك من الفيديو">
         </div>
-        <div class="grid-2">
-            <button class="btn btn-outline" onclick="prevEx()">السابق</button>
-            <button class="btn btn-primary" id="next-ex-btn" onclick="nextEx()">التالي</button>
+        <p id="ex-desc" onclick="speakText(this)" style="font-weight:bold; text-align:center;"></p>
+        
+        <div style="display:flex; gap:10px;">
+            <button class="btn btn-primary" style="background:#334155" onclick="prevEx()">السابق</button>
+            <button class="btn btn-primary" id="next-btn" onclick="nextEx()">التالي</button>
         </div>
     </div>
 </div>
 
 <script>
     const exercises = [
-        { title: "تمرين Xu (شووو)", desc: "يستهدف الكبد. انطق الصوت مع حركة اليدين جانباً.", gif: "xu.gif", audio: "xu.mp3" },
-        { title: "تمرين He (هووو)", desc: "لتقوية القلب. ارفع يديك للأعلى برفق مع الزفير.", gif: "he.gif", audio: "he.mp3" },
-        { title: "تمرين Si (سووو)", desc: "يستهدف الرئتين مباشرة (هام جداً). اخرج الزفير مع نطق السين.", gif: "si.gif", audio: "si.mp3" },
-        // أضف البقية هنا..
+        { name: "تمرين Xu (شووو)", desc: "استنشق بعمق، ثم اخرج الزفير مع نطق 'شووو' مع تحريك اليدين جانباً كما في الفيديو.", gif: "xu_exercise.gif" },
+        { name: "تمرين Si (سووو)", desc: "يستهدف الرئتين مباشرة. انطق 'سووو' ببطء مع الزفير.", gif: "si_exercise.gif" }
     ];
     let current = 0;
 
     function initApp() { updateUI(); }
+    
     function showScreen(id) {
         document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
         document.getElementById(id).classList.add('active');
@@ -108,25 +86,23 @@
 
     function updateUI() {
         const ex = exercises[current];
-        document.getElementById('ex-title').innerText = ex.title;
+        document.getElementById('ex-title').innerText = ex.name;
         document.getElementById('ex-desc').innerText = ex.desc;
-        // 3. الربط البرمجي للـ GIF: بمجرد تسمية ملف الـ GIF سيظهر فوراً
-        document.getElementById('main-gif').src = ex.gif; 
+        document.getElementById('ex-gif').src = ex.gif;
     }
 
-    // 5. خاصية النطق للنصوص (Voice Assistant)
+    function nextEx() {
+        if(current < exercises.length - 1) { current++; updateUI(); }
+        else { alert("أحسنت! أكملت الجلسة."); showScreen('screen-booklet'); }
+    }
+
+    // خاصية الذكاء الاصطناعي الناطق
     function speakText(element) {
-        const text = element.innerText;
         const msg = new SpeechSynthesisUtterance();
-        msg.text = text;
-        msg.lang = 'ar-EG'; // اللغة العربية، لهجة مصرية
-        msg.rate = 0.9; // سرعة القراءة
+        msg.text = element.innerText;
+        msg.lang = 'ar-EG';
+        msg.rate = 0.8;
         window.speechSynthesis.speak(msg);
-    }
-
-    function playAudioInstruction() {
-        alert("تشغيل الريكورد الصوتي لـ: " + exercises[current].title);
-        // let audio = new Audio(exercises[current].audio); audio.play();
     }
 </script>
 </body>

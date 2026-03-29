@@ -3,66 +3,75 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>تطبيق التأهيل الرئوي - جامعة العاصمة</title>
+    <title>نظام إعادة التأهيل الرئوي - د. عبد الرحمن فودة</title>
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700;900&display=swap" rel="stylesheet">
     <style>
         :root { --p: #00e5ff; --bg: #050a14; --card: #111b2d; --green: #00e676; --gold: #ffd700; --text: #e2e8f0; }
-        body { font-family: 'Tajawal', sans-serif; background: var(--bg); color: var(--text); margin: 0; padding-bottom: 20px; }
-        .screen { display: none; padding: 15px; animation: fadeIn 0.4s ease; }
+        body { font-family: 'Tajawal', sans-serif; background: var(--bg); color: var(--text); margin: 0; padding-bottom: 30px; }
+        .screen { display: none; padding: 20px; animation: fadeIn 0.4s ease; }
         .active { display: block; }
-        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-        .header { background: var(--card); padding: 20px; text-align: center; border-bottom: 3px solid var(--p); margin-bottom: 15px; }
-        .card { background: var(--card); padding: 20px; border-radius: 15px; margin-bottom: 15px; border-right: 5px solid var(--p); box-shadow: 0 4px 15px rgba(0,0,0,0.5); }
-        h2, h3 { color: var(--p); margin: 0 0 10px; }
-        .btn { border: none; width: 100%; padding: 15px; border-radius: 10px; font-weight: 900; cursor: pointer; margin-top: 10px; font-family: inherit; }
-        .btn-primary { background: linear-gradient(45deg, #1a73e8, var(--p)); color: white; }
-        .btn-outline { background: transparent; border: 2px solid var(--p); color: var(--p); }
-        .exercise-media { width: 100%; border-radius: 10px; margin: 15px 0; background: #1e293b; min-height: 200px; display: flex; align-items: center; justify-content: center; }
-        .booklet-section { background: rgba(255,255,255,0.05); padding: 15px; border-radius: 10px; margin-bottom: 15px; }
-        .tool-grid { display: grid; gap: 10px; }
-        .tool-row { display: flex; justify-content: space-between; align-items: center; padding: 10px 0; border-bottom: 1px solid #2d3a54; }
-        select, input { padding: 10px; border-radius: 8px; background: #1e293b; color: white; border: 1px solid var(--p); }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; } }
+        .header { background: var(--card); padding: 20px; text-align: center; border-bottom: 3px solid var(--p); margin-bottom: 20px; }
+        .card { background: var(--card); padding: 20px; border-radius: 18px; margin-bottom: 20px; border-right: 5px solid var(--p); box-shadow: 0 8px 25px rgba(0,0,0,0.6); }
+        h2 { color: var(--p); margin: 0; font-weight: 900; }
+        h3 { color: var(--gold); border-bottom: 1px solid #2d3a54; padding-bottom: 10px; }
+        label { display: block; margin: 15px 0 8px; font-size: 14px; color: #94a3b8; font-weight: bold; }
+        select, input { width: 100%; padding: 12px; border-radius: 10px; border: 1px solid #2d3a54; background: #1e293b; color: white; box-sizing: border-box; }
+        .btn { border: none; width: 100%; padding: 18px; border-radius: 14px; font-weight: 900; cursor: pointer; margin-top: 15px; font-family: inherit; }
+        .btn-primary { background: linear-gradient(45deg, #1a73e8, var(--p)); color: #fff; }
+        .exercise-media { width: 100%; border-radius: 12px; background: #0f172a; margin-bottom: 15px; border: 1px dashed var(--p); overflow: hidden; }
+        .q-row { display: flex; justify-content: space-between; align-items: center; padding: 10px 0; border-bottom: 1px solid rgba(255,255,255,0.05); }
+        .q-row span { flex: 1; font-size: 14px; padding-left: 10px; }
+        .q-row select { width: 75px; }
     </style>
 </head>
 <body onload="initApp()">
 
 <div class="header">
     <h2>جامعة العاصمة - كلية التمريض</h2>
-    <p style="color:var(--gold); margin:5px 0 0;">برنامج إعادة التأهيل الرئوي (Liuzijue Qigong)</p>
+    <div style="color:var(--gold); margin-top:5px;">برنامج إعادة التأهيل الرئوي (Liuzijue Qigong)</div>
 </div>
 
 <div id="screen-booklet" class="screen active">
     <div class="card">
         <h3>📖 الكتيب التثقيفي للمريض</h3>
-        <div class="booklet-section">
-            <h4 style="color:var(--gold)">📍 مقدمة عن البرنامج:</h4>
-            [span_0](start_span)[span_1](start_span)<p>يهدف هذا البرنامج إلى تحسين كفاءة الرئتين وتقليل ضيق التنفس باستخدام تمارين "Liuzijue" التي تعتمد على 6 أصوات شفائية[span_0](end_span)[span_1](end_span).</p>
-        </div>
-        <div class="booklet-section">
-            <h4 style="color:var(--gold)">🥗 إرشادات التغذية والنشاط:</h4>
+        [span_0](start_span)<p><strong>مقدمة عن البرنامج:</strong> يهدف هذا البرنامج إلى تحسين كفاءة الرئتين باستخدام تمارين الأصوات الستة[span_0](end_span).</p>
+        <div style="background:rgba(255,255,255,0.03); padding:15px; border-radius:10px;">
+            <p style="color:var(--p)"><strong>🥦 إرشادات التغذية:</strong></p>
             <ul>
-                <li>تناول وجبات صغيرة لتقليل الضغط على الحجاب الحاجز.</li>
-                <li>تجنب الأنشطة المجهدة عند الشعور بالنهجان الشديد.</li>
+                <li>تناول وجبات صغيرة متكررة لتجنب النهجان.</li>
+                <li>اشرب السوائل بكثرة لتسهيل التخلص من البلغم.</li>
             </ul>
         </div>
-        <button class="btn btn-primary" onclick="showScreen('screen-tools')">ابدأ التقييم والتدريب ➡️</button>
+        <button class="btn btn-primary" onclick="showScreen('screen-tool1')">بدء التقييم (Tool I) ➡️</button>
     </div>
 </div>
 
-<div id="screen-tools" class="screen">
+<div id="screen-tool1" class="screen">
     <div class="card">
-        <h3>📋 التقييم البحثي (Tool I & II)</h3>
-        [span_2](start_span)[span_3](start_span)<p style="font-size:12px; color:var(--gold);">برجاء إدخال البيانات الديموغرافية وتقييم ضيق التنفس لـ 24 نشاطاً[span_2](end_span)[span_3](end_span).</p>
-        
-        <div class="tool-grid">
-            <div class="tool-row"><span>العمر:</span><select id="age"><option>18-30</option><option>31-40</option><option>41-50</option><option>51-60</option></select></div>
-            <div class="tool-row"><span>الحالة الاجتماعية:</span><select id="marital"><option>أعزب</option><option>متزوج</option><option>مطلق</option><option>أرمل</option></select></div>
-            <div class="tool-row"><span>التدخين:</span><select id="smoking"><option>مدخن حالي</option><option>مدخن سابق</option><option>لا يدخن</option></select></div>
-        </div>
-        
-        <h4 style="margin-top:20px;">تقييم الأنشطة الـ 24 (Tool II):</h4>
-        <div id="tool2-container"></div>
-        <button class="btn btn-primary" onclick="showScreen('screen-exercise')">حفظ وبدء التمارين (GIFs) ➡️</button>
+        <h3>📋 الأداة الأولى: استبيان المريض</h3>
+        <label>1. العمر:</label>
+        <select id="t1-q1"><option>18-30 سنة</option><option>31-40 سنة</option><option>41-50 سنة</option><option>51-60 سنة</option></select>
+        <label>2. النوع:</label>
+        <select id="t1-q2"><option>ذكر</option><option>أنثى</option></select>
+        <label>3. الحالة الاجتماعية:</label>
+        <select id="t1-q3"><option>أعزب</option><option>متزوج</option><option>مطلق</option><option>أرمل</option></select>
+        <label>4. المستوى التعليمي:</label>
+        <select id="t1-q4"><option>لا يقرأ ولا يكتب</option><option>ابتدائي</option><option>ثانوي</option><option>جامعي</option></select>
+        <label>20. وضع التدخين:</label>
+        <select id="t1-q20"><option>مدخن حالي</option><option>مدخن سابق</option><option>لم يسبق له التدخين</option></select>
+        <label>23. سنوات التدخين:</label>
+        <input type="number" id="t1-q23" placeholder="أدخل عدد السنوات">
+        <button class="btn btn-primary" onclick="showScreen('screen-tool2')">استمرار للتقييم الوظيفي ➡️</button>
+    </div>
+</div>
+
+<div id="screen-tool2" class="screen">
+    <div class="card">
+        <h3>📋 الأداة الثانية: تقييم ضيق التنفس</h3>
+        [span_1](start_span)<p style="font-size:12px; color:var(--gold)">درجة النهجان من 0 (لا يوجد) إلى 5 (أقصى درجة)[span_1](end_span).</p>
+        <div id="tool2-list"></div>
+        <button class="btn btn-primary" onclick="showScreen('screen-exercise')">حفظ وبدء التمارين ➡️</button>
     </div>
 </div>
 
@@ -70,59 +79,65 @@
     <div class="card">
         <h3 id="ex-title">تمرين Si (سووو)</h3>
         <div class="exercise-media">
-            <img id="ex-gif" src="si_exercise.gif" alt="تمرين متحرك" style="max-width:100%; border-radius:10px;">
+            <img id="ex-gif" src="" style="width:100%; display:none;">
+            <div id="gif-loader" style="padding:50px; text-align:center; color:#475569;">[سيظهر فيديو التمرين هنا]</div>
         </div>
-        [span_4](start_span)<p id="ex-desc" style="text-align:center; font-weight:bold;">يستهدف الرئتين (هام جداً). اخرج الزفير مع نطق السين[span_4](end_span).</p>
-        
-        <button class="btn btn-outline" onclick="playAudio()">🔊 تشغيل الشرح الصوتي (بصوت د. فودة)</button>
-        
-        <div style="display:flex; gap:10px; margin-top:20px;">
-            <button class="btn btn-outline" onclick="prevEx()">السابق</button>
-            <button class="btn btn-primary" onclick="nextEx()">التالي</button>
+        <p id="ex-desc" style="text-align:center; font-weight:bold;"></p>
+        <button class="btn btn-primary" onclick="playCurrentAudio()" style="background:var(--green)">🔊 تشغيل الشرح الصوتي</button>
+        <div style="display:flex; gap:10px; margin-top:15px;">
+            <button class="btn btn-primary" style="background:#334155" onclick="prevEx()">السابق</button>
+            <button class="btn btn-primary" id="next-btn" onclick="nextEx()">التالي</button>
         </div>
     </div>
 </div>
 
 <script>
-    const tool2Items = ["أثناء الراحة", "المشي", "صعود الدرج", "تناول الطعام", "الاستحمام", "الأنشطة الجنسية", "الخوف من النهجان"]; // تكملة الـ 24 عنصر
-    const exercises = [
-        [span_5](start_span){ name: "تمرين Xu (شووو)", desc: "يستهدف الكبد. انطق الصوت مع حركة اليدين جانباً[span_5](end_span).", gif: "xu.gif" },
-        [span_6](start_span){ name: "تمرين Si (سووو)", desc: "يستهدف الرئتين مباشرة لتحسين التنفس[span_6](end_span).", gif: "si.gif" }
-        // أضف الـ 6 تمارين هنا
+    const t2Items = [
+        "أثناء الراحة", "المشي بسرعة عادية", "المشي مع الزملاء", "صعود مرتفع", "صعود الدرج", 
+        "أثناء الطعام", "الوقوف", "تفريش الأسنان", "حلاقة/تمشيط الشعر", "الاغتسال", "ارتداء الملابس", 
+        "التقاط الأشياء", "غسيل الأطباق", "الكنس", "ترتيب السرير", "التسوق", "غسل الملابس", 
+        "غسيل السيارة", "قطع العشب", "ري الزرع", "الأنشطة الجنسية", "تقييد الحياة", "الخوف من الإرهاق", "الخوف من النهجان"
     ];
+
+    const exercises = [
+        { name: "تمرين Xu (شووو)", desc: "لتحسين وظائف الكبد. أخرج الزفير مع نطق شووو.", gif: "xu.gif", audio: "xu.mp3" },
+        { name: "تمرين Si (سووو)", desc: "يستهدف الرئتين مباشرة (هام جداً). اخرج الزفير مع نطق السين.", gif: "si.gif", audio: "si.mp3" }
+        // أضف البقية هنا..
+    ];
+
     let currentEx = 0;
 
     function initApp() {
-        const container = document.getElementById('tool2-container');
-        tool2Items.forEach(item => {
-            container.innerHTML += `<div class="tool-row"><span>${item}</span><select><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option></select></div>`;
+        const container = document.getElementById('tool2-list');
+        t2Items.forEach((item, i) => {
+            container.innerHTML += `<div class="q-row"><span>${i+1}. ${item}</span><select><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option></select></div>`;
         });
     }
 
     function showScreen(id) {
         document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
         document.getElementById(id).classList.add('active');
-        window.scrollTo(0,0);
-    }
-
-    function nextEx() {
-        if(currentEx < exercises.length - 1) {
-            currentEx++;
-            updateExUI();
-        } else {
-            alert("أحسنت! أكملت الجلسة التدريبية.");
-            showScreen('screen-booklet');
-        }
+        if(id === 'screen-exercise') updateExUI();
     }
 
     function updateExUI() {
-        document.getElementById('ex-title').innerText = exercises[currentEx].name;
-        document.getElementById('ex-desc').innerText = exercises[currentEx].desc;
-        document.getElementById('ex-gif').src = exercises[currentEx].gif;
+        const ex = exercises[currentEx];
+        document.getElementById('ex-title').innerText = ex.name;
+        document.getElementById('ex-desc').innerText = ex.desc;
+        const img = document.getElementById('ex-gif');
+        img.src = ex.gif;
+        img.style.display = "block";
+        document.getElementById('gif-loader').style.display = "none";
     }
 
-    function playAudio() {
-        alert("تشغيل الريكورد الصوتي المرفق للمدرب...");
+    function nextEx() {
+        if(currentEx < exercises.length - 1) { currentEx++; updateExUI(); }
+        else { alert("انتهت الجلسة بنجاح!"); showScreen('screen-booklet'); }
+    }
+
+    function playCurrentAudio() {
+        const audio = new Audio(exercises[currentEx].audio);
+        audio.play().catch(() => alert("تأكد من وجود ملف الصوت: " + exercises[currentEx].audio));
     }
 </script>
 </body>

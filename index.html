@@ -1,109 +1,126 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>تطبيق التأهيل الرئوي - د. عبد الرحمن فودة</title>
-    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700;900&display=swap" rel="stylesheet">
-    <style>
-        :root { --p: #00e5ff; --bg: #051020; --card: #111b2d; --gold: #ffd700; --green: #00e676; --text: #f1f5f9; }
-        body { font-family: 'Tajawal', sans-serif; background: var(--bg); color: var(--text); margin: 0; padding-bottom: 40px; }
-        
-        /* الهيدر بلوجو الجامعتين */
-        .header { background: var(--card); padding: 25px; text-align: center; border-bottom: 4px solid var(--p); }
-        .logos { display: flex; justify-content: space-around; font-weight: 900; color: var(--gold); margin-bottom: 10px; font-size: 18px; }
-        
-        /* الخطوط الكبيرة جداً */
-        h2 { font-size: 30px; color: var(--p); margin: 10px 0; }
-        h3 { font-size: 24px; color: var(--gold); }
-        p, li, label { font-size: 20px; line-height: 1.6; }
-        
-        .screen { display: none; padding: 20px; animation: slideUp 0.4s ease; }
-        .active { display: block; }
-        @keyframes slideUp { from { transform: translateY(20px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
-        
-        .card { background: var(--card); padding: 25px; border-radius: 20px; border-right: 8px solid var(--p); box-shadow: 0 10px 30px rgba(0,0,0,0.5); margin-bottom: 20px; cursor: pointer; }
-        .btn { width: 100%; padding: 22px; border-radius: 15px; border: none; font-weight: 900; font-size: 22px; cursor: pointer; margin-top: 15px; font-family: inherit; }
-        .btn-primary { background: linear-gradient(45deg, #1a73e8, var(--p)); color: #fff; }
-        
-        /* عرض الـ GIF */
-        .gif-container { background: #000; border-radius: 15px; overflow: hidden; margin: 20px 0; border: 2px solid var(--p); }
-        .gif-container img { width: 100%; display: block; }
-        
-        .speak-hint { font-size: 14px; color: var(--p); text-align: center; display: block; margin-top: -10px; margin-bottom: 10px; }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<title>برنامج Liuzijue Qigong - د. عبد الرحمن فودة</title>
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+/* ... (نفس التنسيقات السابقة مع إضافة تحسينات للمشغل) ... */
+:root{--p:#00c8ff;--bg:#04090f;--card:#0b1422;--card2:#0f1d30;--green:#00e676;--gold:#ffc107;--red:#ff5252;--text:#dde6f0;--muted:#526070;--border:#162436;}
+body{font-family:'Tajawal',sans-serif;background:var(--bg);color:var(--text);margin:0;padding-bottom:80px;}
+.screen{display:none;padding:15px;animation:fadeUp .3s ease;}
+.screen.active{display:block;}
+.card{background:var(--card2);border-radius:18px;padding:20px;margin-bottom:15px;border:1px solid var(--border);box-shadow:0 10px 30px rgba(0,0,0,0.5);}
+.video-container{width:100%;border-radius:15px;overflow:hidden;background:#000;margin-bottom:15px;border:2px solid var(--p);}
+video{width:100%;display:block;}
+.btn{width:100%;padding:15px;border-radius:12px;border:none;font-weight:900;cursor:pointer;margin-top:10px;}
+.btn-primary{background:linear-gradient(135deg,#0d3d7a,var(--p));color:#fff;}
+</style>
 </head>
-<body onload="initApp()">
+<body>
 
-<div class="header">
-    <div class="logos">
-        <span>جامعة العاصمة</span>
-        <span>جامعة المنوفية</span>
-    </div>
-    <h2>برنامج إعادة التأهيل الرئوي</h2>
-    <p style="margin:0; font-weight:bold;">الباحث: د. عبد الرحمن فودة</p>
-</div>
-
-<div id="screen-booklet" class="screen active">
-    <div class="card" onclick="speakText(this)">
-        <h3>📖 الكتيب التثقيفي (اضغط لسماع النص)</h3>
-        <p><strong>مقدمة:</strong> يهدف البرنامج لتحسين كفاءة الرئتين وتقليل النهجان باستخدام تمارين الأصوات الستة.</p>
-        <p><strong>🥦 إرشادات:</strong> تناول وجبات صغيرة، واشرب السوائل بكثرة لتسهيل التنفس.</p>
-    </div>
-    <button class="btn btn-primary" onclick="showScreen('screen-exercise')">ابدأ التمارين المتحركة ➡️</button>
-</div>
-
-<div id="screen-exercise" class="screen">
+<div id="screen-consent" class="screen active">
     <div class="card">
-        <h3 id="ex-title">تمرين Xu (شووو)</h3>
-        <span class="speak-hint">(اضغط على الصورة أو النص للنطق بصوت د. فودة)</span>
-        <div class="gif-container" onclick="speakText(document.getElementById('ex-desc'))">
-            <img id="ex-gif" src="xu_exercise.gif" alt="تمرين متحرك من الفيديو">
+        <h2 style="color:var(--gold); text-align:center;">🤝 إقرار موافقة مستنيرة</h2>
+        <p style="line-height:1.8;">أهلاً بك يا بطل. نحن بصدد إجراء بحث علمي يهدف لتحسين كفاءة الرئة وتقليل النهجان. نؤكد لك أن مشاركتك تطوعية تماماً، وأن جميع بياناتك ستعامل بسرية تامة ولأغراض البحث العلمي فقط.</p>
+        <p style="text-align:center; font-weight:bold; color:var(--p);">نشكرك جداً على تعاونك معنا.</p>
+        <button class="btn btn-primary" onclick="showScreen('screen-education')">أوافق وأرغب في البدء ✅</button>
+    </div>
+</div>
+
+<div id="screen-education" class="screen">
+    <div class="card">
+        <h2 style="color:var(--p);">💡 ما هي السدة الرئوية (COPD)؟</h2>
+        <p>هي حالة تجعل التنفس صعباً بسبب ضيق الشعب الهوائية، وأهم أعراضها هو <strong>النهجان (Dyspnea)</strong>.</p>
+        <div style="background:rgba(0,200,255,0.1); padding:15px; border-radius:10px; margin:15px 0; border-right:4px solid var(--p);">
+            <strong>لماذا تمرين Liuzijue؟</strong>
+            <p>هذا التمرين الصيني القديم يعتمد على إخراج أصوات معينة مع الزفير لتقوية الحجاب الحاجز وتقليل ضيق التنفس.</p>
         </div>
-        <p id="ex-desc" onclick="speakText(this)" style="font-weight:bold; text-align:center;"></p>
+        <button class="btn btn-primary" onclick="showScreen('screen-main')">فهمت، لنبدأ التمارين ➡️</button>
+    </div>
+</div>
+
+<div id="screen-main" class="screen">
+    <div class="card">
+        <div id="exercise-header">
+            <h3 id="ex-name" style="color:var(--gold);">تمرين الصوت الأول</h3>
+            <p id="ex-organ" style="color:var(--muted); font-size:12px;">العضو المستهدف: الكبد</p>
+        </div>
         
-        <div style="display:flex; gap:10px;">
-            <button class="btn btn-primary" style="background:#334155" onclick="prevEx()">السابق</button>
-            <button class="btn btn-primary" id="next-btn" onclick="nextEx()">التالي</button>
+        <div class="video-container">
+            <video id="main-video" controls playsinline>
+                <source id="video-src" src="1000959085.mp4" type="video/mp4">
+            </video>
+        </div>
+
+        <div id="ex-instructions" style="font-size:14px; line-height:1.6;">
+            </div>
+
+        <div style="display:flex; gap:10px; margin-top:20px;">
+            <button class="btn btn-gray" onclick="prevExercise()">السابق</button>
+            <button class="btn btn-primary" onclick="nextExercise()">التالي</button>
         </div>
     </div>
 </div>
+
+<audio id="bg-music" loop>
+    <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg"> 
+</audio>
 
 <script>
-    const exercises = [
-        { name: "تمرين Xu (شووو)", desc: "استنشق بعمق، ثم اخرج الزفير مع نطق 'شووو' مع تحريك اليدين جانباً كما في الفيديو.", gif: "xu_exercise.gif" },
-        { name: "تمرين Si (سووو)", desc: "يستهدف الرئتين مباشرة. انطق 'سووو' ببطء مع الزفير.", gif: "si_exercise.gif" }
-    ];
-    let current = 0;
+// ترتيب الفيديوهات حسب الصوت والنطق الصحيح
+const exercises = [
+    { name: "تمرين الصوت (XŪ - شيوو)", video: "1000959085.mp4", organ: "الكبد", desc: "ينطق مع زفير طويل لتنظيم طاقة الكبد." },
+    { name: "تمرين الصوت (HĒ - هِي)", video: "1000959113.mp4", organ: "القلب", desc: "يساعد في تهدئة ضربات القلب وتحسين الدورة الدموية." },
+    { name: "تمرين الصوت (HŪ - هوو)", video: "1000959119.mp4", organ: "الطحال", desc: "لتحسين عملية الهضم وتقوية الطاقة المركزية." },
+    { name: "تمرين الصوت (SĪ - سيي)", video: "1000959130.mp4", organ: "الرئتين", desc: "التمرين الأساسي لمرضى COPD لزيادة سعة الرئة." },
+    { name: "تمرين الصوت (CHUI - تشوي)", video: "1000959146.mp4", organ: "الكلى", desc: "لتقوية طاقة الكلى وتعزيز المناعة." },
+    { name: "تمرين الصوت (XĪ - شيي)", video: "1000959154.mp4", organ: "المسخنات الثلاثة", desc: "لتوازن الطاقة في كامل أعضاء الجسم." },
+    { name: "خاتمة البرنامج", video: "1000959379.mp4", organ: "الاسترخاء العام", desc: "شكر للمريض على إتمام الجلسة." }
+];
 
-    function initApp() { updateUI(); }
+let currentIdx = 0;
+
+function showScreen(id) {
+    document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+    document.getElementById(id).classList.add('active');
     
-    function showScreen(id) {
-        document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
-        document.getElementById(id).classList.add('active');
-        window.scrollTo(0,0);
+    // تشغيل موسيقى الخلفية بمجرد البدء
+    if(id === 'screen-main') {
+        const music = document.getElementById('bg-music');
+        music.volume = 0.1; // موسيقى خفيفة جداً
+        music.play();
     }
+}
 
-    function updateUI() {
-        const ex = exercises[current];
-        document.getElementById('ex-title').innerText = ex.name;
-        document.getElementById('ex-desc').innerText = ex.desc;
-        document.getElementById('ex-gif').src = ex.gif;
-    }
+function updateExercise() {
+    const ex = exercises[currentIdx];
+    document.getElementById('ex-name').innerText = ex.name;
+    document.getElementById('ex-organ').innerText = "العضو المستهدف: " + ex.organ;
+    document.getElementById('ex-instructions').innerText = ex.desc;
+    
+    const video = document.getElementById('main-video');
+    const source = document.getElementById('video-src');
+    source.src = ex.video;
+    video.load();
+    video.play();
+}
 
-    function nextEx() {
-        if(current < exercises.length - 1) { current++; updateUI(); }
-        else { alert("أحسنت! أكملت الجلسة."); showScreen('screen-booklet'); }
+function nextExercise() {
+    if (currentIdx < exercises.length - 1) {
+        currentIdx++;
+        updateExercise();
     }
+}
 
-    // خاصية الذكاء الاصطناعي الناطق
-    function speakText(element) {
-        const msg = new SpeechSynthesisUtterance();
-        msg.text = element.innerText;
-        msg.lang = 'ar-EG';
-        msg.rate = 0.8;
-        window.speechSynthesis.speak(msg);
+function prevExercise() {
+    if (currentIdx > 0) {
+        currentIdx--;
+        updateExercise();
     }
+}
 </script>
+
 </body>
 </html>
